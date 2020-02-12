@@ -1292,7 +1292,7 @@ export class Markup {
 
   static keyboard(buttons: (Buttons | string)[] | (Buttons | string)[][], options?: object): Markup & tt.ReplyKeyboardMarkup;
 
-  static inlineKeyboard(buttons: CallbackButton[] | CallbackButton[][] | UrlButton[] | UrlButton[][], options?: object): Markup & tt.InlineKeyboardMarkup;
+  static inlineKeyboard(buttons: (CallbackButton | UrlButton)[] | (CallbackButton | UrlButton)[][], options?: object): Markup & tt.InlineKeyboardMarkup;
 
   static resize(value?: boolean): Markup;
 
