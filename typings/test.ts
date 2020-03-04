@@ -383,3 +383,10 @@ const middleware: Middleware<ContextMessageUpdate> = ctx => {
     }
   ]);
 };
+
+// Telegram
+const middleware2: Middleware<ContextMessageUpdate> = ctx => {
+  // unbanChatMember
+  ctx.telegram.unbanChatMember(100, 1000);
+  ctx.telegram.unbanChatMember("100", 1000);
+};
