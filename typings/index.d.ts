@@ -1299,7 +1299,7 @@ export interface ComposerConstructor {
    */
   mount<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     updateTypes: tt.UpdateType | tt.UpdateType[],
     ...middleware: Array<Handler<TContext>>
@@ -1312,7 +1312,7 @@ export interface ComposerConstructor {
    */
   hears<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     triggers: HearsTriggers,
     ...handler: Array<Handler<TContext>>
@@ -1325,7 +1325,7 @@ export interface ComposerConstructor {
    */
   action<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     triggers: HearsTriggers,
     ...handler: Array<Handler<TContext>>
@@ -1348,7 +1348,7 @@ export interface ComposerConstructor {
    */
   optional<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     perdicate: Predicate<TContext>,
     ...middleware: Array<Handler<TContext>>
@@ -1378,9 +1378,9 @@ export interface ComposerConstructor {
    */
   branch<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate,
-    VContext extends ContextMessageUpdate,
-    WContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext,
+    VContext extends ContextMessageUpdate = TContext,
+    WContext extends ContextMessageUpdate = TContext
   >(
     perdicate: Predicate<TContext>,
     trueMiddleware: Handler<UContext>,
@@ -1412,7 +1412,7 @@ export interface ComposerConstructor {
    */
   chatType<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     type: tt.ChatType | tt.ChatType[],
     ...middleware: Array<Handler<TContext>>
@@ -1424,7 +1424,7 @@ export interface ComposerConstructor {
    */
   privateChat<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     ...middleware: Array<Handler<TContext>>
   ): Middleware<UContext>;
@@ -1435,14 +1435,14 @@ export interface ComposerConstructor {
    */
   groupChat<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     ...middleware: Array<Handler<TContext>>
   ): Middleware<UContext>;
 
   entity<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1451,7 +1451,7 @@ export interface ComposerConstructor {
 
   email<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1460,7 +1460,7 @@ export interface ComposerConstructor {
 
   url<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1469,7 +1469,7 @@ export interface ComposerConstructor {
 
   textLink<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1478,7 +1478,7 @@ export interface ComposerConstructor {
 
   textMention<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1487,7 +1487,7 @@ export interface ComposerConstructor {
 
   mention<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1496,7 +1496,7 @@ export interface ComposerConstructor {
 
   phone<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1505,7 +1505,7 @@ export interface ComposerConstructor {
 
   hashtag<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1514,7 +1514,7 @@ export interface ComposerConstructor {
 
   cashtag<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     mention: HearsTriggers,
     middleware: Handler<TContext>,
@@ -1523,7 +1523,7 @@ export interface ComposerConstructor {
 
   acl<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     userId: string | string[],
     middleware: Handler<TContext>,
@@ -1532,7 +1532,7 @@ export interface ComposerConstructor {
 
   memberStatus<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     status: string | string[],
     middleware: Handler<TContext>,
@@ -1541,7 +1541,7 @@ export interface ComposerConstructor {
 
   admin<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     middleware: Handler<TContext>,
     ...middlewares: Array<Handler<TContext>>
@@ -1549,7 +1549,7 @@ export interface ComposerConstructor {
 
   creator<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     middleware: Handler<TContext>,
     ...middlewares: Array<Handler<TContext>>
@@ -1557,7 +1557,7 @@ export interface ComposerConstructor {
 
   chatType<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     type: tt.ChatType,
     middleware: Handler<TContext>,
@@ -1566,7 +1566,7 @@ export interface ComposerConstructor {
 
   privateChat<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     middleware: Handler<TContext>,
     ...middlewares: Array<Handler<TContext>>
@@ -1574,7 +1574,7 @@ export interface ComposerConstructor {
 
   groupChat<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     middleware: Handler<TContext>,
     ...middlewares: Array<Handler<TContext>>
@@ -1582,7 +1582,7 @@ export interface ComposerConstructor {
 
   gameQuery<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     middleware: Handler<TContext>,
     ...middlewares: Array<Handler<TContext>>
@@ -1590,14 +1590,14 @@ export interface ComposerConstructor {
 
   gameQuery<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     middleware: Handler<TContext>
   ): Middleware<UContext>;
 
   compose<
     TContext extends ContextMessageUpdate,
-    UContext extends ContextMessageUpdate
+    UContext extends ContextMessageUpdate = TContext
   >(
     middleware: Handler<TContext>[]
   ): Middleware<UContext>;
