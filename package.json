@@ -39,8 +39,7 @@
     "minimist": "^1.2.0",
     "module-alias": "^2.2.2",
     "node-fetch": "^2.2.0",
-    "sandwich-stream": "^2.0.1",
-    "telegram-typings": "^4.0.0-beta"
+    "sandwich-stream": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "^13.1.0",
