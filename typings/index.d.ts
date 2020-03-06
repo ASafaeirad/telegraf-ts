@@ -450,6 +450,25 @@ export interface ContextMessageUpdate extends Context {
    * @returns True on success
    */
   setChatTitle(title: string): Promise<boolean>;
+
+  /**
+   * Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights
+   * @param userId Unique identifier of the target user
+   * @param untilDate Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever
+   * @returns True on success
+   */
+  kickChatMember(userId: number, untilDate?: number): Promise<boolean>;
+
+  /**
+   *  Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success.
+   * @param userId Unique identifier of the target user
+   * @param permissions Permissions
+   * @returns True on success
+   */
+  promoteChatMember(
+    userId: number,
+    permissions?: tt.Permissions
+  ): Promise<boolean>;
 }
 
 export interface SceneContextOptions {
@@ -1042,6 +1061,19 @@ export interface Telegram {
     chatId: number | string,
     userId: number,
     untilDate?: number
+  ): Promise<boolean>;
+
+  /**
+   *  Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success.
+   * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param userId Unique identifier of the target user
+   * @param permissions Permissions
+   * @returns True on success
+   */
+  promoteChatMember(
+    chatId: number | string,
+    userId: number,
+    permissions?: tt.Permissions
   ): Promise<boolean>;
 
   /**

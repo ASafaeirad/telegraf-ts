@@ -12,43 +12,9 @@ export type MemberStatus =
   | "left"
   | "kicked";
 
-export type UserActions =
-  | "until_date"
-  | "can_be_edited"
-  | "can_change_info"
-  | "can_post_messages"
-  | "can_edit_messages"
-  | "can_delete_messages"
-  | "can_invite_users"
-  | "can_restrict_members"
-  | "can_pin_messages"
-  | "can_promote_members"
-  | "can_send_messages"
-  | "can_send_media_messages"
-  | "can_send_other_messages"
-  | "can_add_web_page_previews";
+export type UserActions = keyof Permissions;
 
-/**
- * This object contains information about one member of a chat.
- */
-export interface ChatMember {
-  /**
-   * Information about the user
-   */
-  user: User;
-
-  /**
-   * The member's status in the chat. Can be “creator”, “administrator”,
-   * “member”, “restricted”, “left” or “kicked”
-   */
-  status: MemberStatus;
-
-  /**
-   * Restricted and kicked only. Date when restrictions will be lifted for
-   * this user, unix time
-   */
-  until_date?: number;
-
+interface Permissions {
   /**
    * Administrators only. True, if the bot is allowed to edit administrator
    * privileges of that user
@@ -128,6 +94,28 @@ export interface ChatMember {
    * messages, implies can_send_media_messages
    */
   can_add_web_page_previews?: boolean;
+}
+
+/**
+ * This object contains information about one member of a chat.
+ */
+export interface ChatMember extends Permissions {
+  /**
+   * Information about the user
+   */
+  user: User;
+
+  /**
+   * The member's status in the chat. Can be “creator”, “administrator”,
+   * “member”, “restricted”, “left” or “kicked”
+   */
+  status: MemberStatus;
+
+  /**
+   * Restricted and kicked only. Date when restrictions will be lifted for
+   * this user, unix time
+   */
+  until_date?: number;
 }
 
 export type ChatAction =
