@@ -1108,6 +1108,23 @@ export type Handler<T extends ContextMessageUpdate> =
   | Middleware<T>
   | Composer<T>;
 
+export type Predicate<TContext extends ContextMessageUpdate> =
+  | boolean
+  | ((ctx: TContext) => boolean)
+  | ((ctx: TContext) => Promise<boolean>);
+
+export type ComposerPredicate<TContext extends ContextMessageUpdate> = (
+  predicate: Predicate<TContext>,
+  middleware: Handler<TContext>,
+  ...middlewares: Array<Handler<TContext>>
+) => Composer<TContext>;
+
+export type ComposerTrigger<TContext extends ContextMessageUpdate> = (
+  mention: HearsTriggers,
+  middleware: Handler<TContext>,
+  ...middlewares: Array<Handler<TContext>>
+) => Composer<TContext>;
+
 export interface Composer<TContext extends ContextMessageUpdate> {
   /**
    * Registers a middleware.
@@ -1134,32 +1151,11 @@ export interface Composer<TContext extends ContextMessageUpdate> {
   ): Composer<TContext>;
 
   /**
-   * Return the middleware created by this Composer
-   */
-  middleware(): Middleware<TContext>;
-
-  /**
    * Registers middleware for handling text messages.
    * @param triggers Triggers
    * @param middlewares Middleware functions
    */
-  hears(
-    triggers: HearsTriggers,
-    middleware: Handler<TContext>,
-    ...middlewares: Array<Handler<TContext>>
-  ): Composer<TContext>;
-
-  /**
-   * Registers middleware for handling callbackQuery data with regular expressions
-   * @param triggers Triggers
-   * @param middlewares Middleware functions
-   */
-  action(
-    triggers: HearsTriggers,
-    middleware: Handler<TContext>,
-    ...middlewares: Array<Handler<TContext>>
-  ): Composer<TContext>;
-
+  hears: ComposerTrigger<TContext>;
   /**
    * Command handling.
    * @param command Commands
@@ -1172,6 +1168,18 @@ export interface Composer<TContext extends ContextMessageUpdate> {
   ): Composer<TContext>;
 
   /**
+   * Registers middleware for handling callbackQuery data with regular expressions
+   * @param triggers Triggers
+   * @param middlewares Middleware functions
+   */
+  action: ComposerTrigger<TContext>;
+  /**
+   * Registers middleware for handling inlineQuery data with regular expressions
+   * @param triggers Triggers
+   * @param middlewares Middleware functions
+   */
+  inlineQuery: ComposerTrigger<TContext>;
+  /**
    * Registers middleware for handling callback_data actions with game query.
    * @param middlewares Middleware functions
    */
@@ -1179,6 +1187,28 @@ export interface Composer<TContext extends ContextMessageUpdate> {
     middleware: Handler<TContext>,
     ...middlewares: Array<Handler<TContext>>
   ): Composer<TContext>;
+
+  drop(predicate: Predicate<TContext>): Composer<TContext>;
+
+  filter(predicate: Predicate<TContext>): Composer<TContext>;
+
+  entity: ComposerTrigger<TContext>;
+
+  email: ComposerTrigger<TContext>;
+
+  url: ComposerTrigger<TContext>;
+
+  textLink: ComposerTrigger<TContext>;
+
+  textMention: ComposerTrigger<TContext>;
+
+  mention: ComposerTrigger<TContext>;
+
+  phone: ComposerTrigger<TContext>;
+
+  hashtag: ComposerTrigger<TContext>;
+
+  cashtag: ComposerTrigger<TContext>;
 
   /**
    * Registers middleware for handling callback_data actions on start.
@@ -1197,6 +1227,16 @@ export interface Composer<TContext extends ContextMessageUpdate> {
     middleware: Handler<TContext>,
     ...middlewares: Array<Handler<TContext>>
   ): Composer<TContext>;
+
+  settings(
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Composer<TContext>;
+
+  /**
+   * Return the middleware created by this Composer
+   */
+  middleware(): Middleware<TContext>;
 }
 
 export interface ComposerConstructor {
@@ -1272,7 +1312,7 @@ export interface ComposerConstructor {
     TContext extends ContextMessageUpdate,
     UContext extends ContextMessageUpdate
   >(
-    test: boolean | ((ctx: TContext) => boolean),
+    perdicate: Predicate<TContext>,
     ...middleware: Array<Handler<TContext>>
   ): Middleware<UContext>;
 
@@ -1281,7 +1321,15 @@ export interface ComposerConstructor {
    * @param test  Value or predicate (ctx) => bool
    */
   filter<TContext extends ContextMessageUpdate>(
-    test: boolean | ((ctx: TContext) => boolean)
+    perdicate: Predicate<TContext>
+  ): Middleware<TContext>;
+
+  /**
+   * Generates drop middleware.
+   * @param test  Value or predicate (ctx) => bool
+   */
+  drop<TContext extends ContextMessageUpdate>(
+    perdicate: Predicate<TContext>
   ): Middleware<TContext>;
 
   /**
@@ -1296,7 +1344,7 @@ export interface ComposerConstructor {
     VContext extends ContextMessageUpdate,
     WContext extends ContextMessageUpdate
   >(
-    test: boolean | ((ctx: TContext) => boolean),
+    perdicate: Predicate<TContext>,
     trueMiddleware: Handler<UContext>,
     falseMiddleware: Handler<VContext>
   ): Middleware<WContext>;
@@ -1310,6 +1358,10 @@ export interface ComposerConstructor {
    * Allows it to console.log each request received.
    */
   fork<TContext extends ContextMessageUpdate>(
+    middleware: Handler<TContext>
+  ): Function;
+
+  tap<TContext extends ContextMessageUpdate>(
     middleware: Handler<TContext>
   ): Function;
 
@@ -1348,6 +1400,168 @@ export interface ComposerConstructor {
     UContext extends ContextMessageUpdate
   >(
     ...middleware: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  entity<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  email<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  url<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  textLink<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  textMention<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  mention<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  phone<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  hashtag<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  cashtag<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    mention: HearsTriggers,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  acl<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    userId: string | string[],
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  memberStatus<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    status: string | string[],
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  admin<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  creator<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  chatType<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    type: tt.ChatType,
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  privateChat<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  groupChat<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  gameQuery<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    middleware: Handler<TContext>,
+    ...middlewares: Array<Handler<TContext>>
+  ): Middleware<UContext>;
+
+  gameQuery<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    middleware: Handler<TContext>
+  ): Middleware<UContext>;
+
+  compose<
+    TContext extends ContextMessageUpdate,
+    UContext extends ContextMessageUpdate
+  >(
+    middleware: Handler<TContext>[]
   ): Middleware<UContext>;
 }
 

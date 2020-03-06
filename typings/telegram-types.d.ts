@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as TT from "telegram-typings";
 export * from "telegram-typings";
 import * as fs from "fs";
@@ -89,6 +91,22 @@ export type MessageMedia =
   | InputMediaAnimation
   | InputMediaAudio
   | InputMediaDocument;
+
+export interface Chat {
+  id: number;
+  type: ChatType;
+  title?: string;
+  username?: string;
+  first_name?: string;
+  last_name?: string;
+  all_members_are_administrators?: boolean;
+  photo?: TT.ChatPhoto;
+  description?: string;
+  invite_link?: string;
+  pinned_message?: TT.Message;
+  sticker_set_name?: string;
+  can_set_sticker_set?: boolean;
+}
 
 export interface InputMediaPhoto {
   type: "photo";
