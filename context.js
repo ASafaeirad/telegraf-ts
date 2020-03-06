@@ -55,17 +55,20 @@ class TelegrafContext {
     this.tg = telegram
     this.update = update
     this.options = options
-    this.updateType = UpdateTypes.find((key) => key in this.update)
-    if (this.updateType === 'message' || (this.options.channelMode && this.updateType === 'channel_post')) {
-      this.updateSubTypes = MessageSubTypes
-        .filter((key) => key in this.update[this.updateType])
-        .map((type) => MessageSubTypesMapping[type] || type)
+    this.updateType = UpdateTypes.find(key => key in this.update)
+    if (
+      this.updateType === 'message' ||
+      (this.options.channelMode && this.updateType === 'channel_post')
+    ) {
+      this.updateSubTypes = MessageSubTypes.filter(
+        key => key in this.update[this.updateType]
+      ).map(type => MessageSubTypesMapping[type] || type)
     } else {
       this.updateSubTypes = []
     }
     Object.getOwnPropertyNames(TelegrafContext.prototype)
-      .filter((key) => key !== 'constructor' && typeof this[key] === 'function')
-      .forEach((key) => (this[key] = this[key].bind(this)))
+      .filter(key => key !== 'constructor' && typeof this[key] === 'function')
+      .forEach(key => (this[key] = this[key].bind(this)))
   }
 
   get me () {
@@ -121,15 +124,20 @@ class TelegrafContext {
   }
 
   get chat () {
-    return (this.message && this.message.chat) ||
+    return (
+      (this.message && this.message.chat) ||
       (this.editedMessage && this.editedMessage.chat) ||
-      (this.callbackQuery && this.callbackQuery.message && this.callbackQuery.message.chat) ||
+      (this.callbackQuery &&
+        this.callbackQuery.message &&
+        this.callbackQuery.message.chat) ||
       (this.channelPost && this.channelPost.chat) ||
       (this.editedChannelPost && this.editedChannelPost.chat)
+    )
   }
 
   get from () {
-    return (this.message && this.message.from) ||
+    return (
+      (this.message && this.message.from) ||
       (this.editedMessage && this.editedMessage.from) ||
       (this.callbackQuery && this.callbackQuery.from) ||
       (this.inlineQuery && this.inlineQuery.from) ||
@@ -138,10 +146,14 @@ class TelegrafContext {
       (this.shippingQuery && this.shippingQuery.from) ||
       (this.preCheckoutQuery && this.preCheckoutQuery.from) ||
       (this.chosenInlineResult && this.chosenInlineResult.from)
+    )
   }
 
   get inlineMessageId () {
-    return (this.callbackQuery && this.callbackQuery.inline_message_id) || (this.chosenInlineResult && this.chosenInlineResult.inline_message_id)
+    return (
+      (this.callbackQuery && this.callbackQuery.inline_message_id) ||
+      (this.chosenInlineResult && this.chosenInlineResult.inline_message_id)
+    )
   }
 
   get passportData () {
@@ -169,7 +181,9 @@ class TelegrafContext {
 
   assert (value, method) {
     if (!value) {
-      throw new Error(`Telegraf: "${method}" isn't available for "${this.updateType}::${this.updateSubTypes}"`)
+      throw new Error(
+        `Telegraf: "${method}" isn't available for "${this.updateType}::${this.updateSubTypes}"`
+      )
     }
   }
 
@@ -195,7 +209,10 @@ class TelegrafContext {
 
   answerPreCheckoutQuery (...args) {
     this.assert(this.preCheckoutQuery, 'answerPreCheckoutQuery')
-    return this.telegram.answerPreCheckoutQuery(this.preCheckoutQuery.id, ...args)
+    return this.telegram.answerPreCheckoutQuery(
+      this.preCheckoutQuery.id,
+      ...args
+    )
   }
 
   editMessageText (text, extra) {
@@ -218,7 +235,10 @@ class TelegrafContext {
   }
 
   editMessageCaption (caption, extra) {
-    this.assert(this.callbackQuery || this.inlineMessageId, 'editMessageCaption')
+    this.assert(
+      this.callbackQuery || this.inlineMessageId,
+      'editMessageCaption'
+    )
     return this.inlineMessageId
       ? this.telegram.editMessageCaption(
         undefined,
@@ -256,7 +276,10 @@ class TelegrafContext {
   }
 
   editMessageReplyMarkup (markup) {
-    this.assert(this.callbackQuery || this.inlineMessageId, 'editMessageReplyMarkup')
+    this.assert(
+      this.callbackQuery || this.inlineMessageId,
+      'editMessageReplyMarkup'
+    )
     return this.inlineMessageId
       ? this.telegram.editMessageReplyMarkup(
         undefined,
@@ -273,7 +296,10 @@ class TelegrafContext {
   }
 
   editMessageLiveLocation (latitude, longitude, markup) {
-    this.assert(this.callbackQuery || this.inlineMessageId, 'editMessageLiveLocation')
+    this.assert(
+      this.callbackQuery || this.inlineMessageId,
+      'editMessageLiveLocation'
+    )
     return this.inlineMessageId
       ? this.telegram.editMessageLiveLocation(
         latitude,
@@ -294,7 +320,10 @@ class TelegrafContext {
   }
 
   stopMessageLiveLocation (markup) {
-    this.assert(this.callbackQuery || this.inlineMessageId, 'stopMessageLiveLocation')
+    this.assert(
+      this.callbackQuery || this.inlineMessageId,
+      'stopMessageLiveLocation'
+    )
     return this.inlineMessageId
       ? this.telegram.stopMessageLiveLocation(
         undefined,
@@ -343,6 +372,11 @@ class TelegrafContext {
   promoteChatMember (...args) {
     this.assert(this.chat, 'promoteChatMember')
     return this.telegram.promoteChatMember(this.chat.id, ...args)
+  }
+
+  unbanChatMember (...args) {
+    this.assert(this.chat, 'unbanChatMember')
+    return this.telegram.unbanChatMember(this.chat.id, ...args)
   }
 
   setChatAdministratorCustomTitle (...args) {
@@ -571,7 +605,8 @@ class TelegrafContext {
     if (typeof messageId !== 'undefined') {
       return this.telegram.deleteMessage(this.chat.id, messageId)
     }
-    const message = this.message ||
+    const message =
+      this.message ||
       this.editedMessage ||
       this.channelPost ||
       this.editedChannelPost ||
@@ -582,13 +617,19 @@ class TelegrafContext {
 
   forwardMessage (chatId, extra) {
     this.assert(this.chat, 'forwardMessage')
-    const message = this.message ||
+    const message =
+      this.message ||
       this.editedMessage ||
       this.channelPost ||
       this.editedChannelPost ||
       (this.callbackQuery && this.callbackQuery.message)
     this.assert(message, 'forwardMessage')
-    return this.telegram.forwardMessage(chatId, this.chat.id, message.message_id, extra)
+    return this.telegram.forwardMessage(
+      chatId,
+      this.chat.id,
+      message.message_id,
+      extra
+    )
   }
 }
 

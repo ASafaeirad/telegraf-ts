@@ -471,6 +471,15 @@ export interface ContextMessageUpdate extends Context {
   ): Promise<boolean>;
 
   /**
+   *  Use this method to unban a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success.
+   * @param userId Unique identifier of the target user
+   * @returns True on success
+   */
+  unbanChatMember(
+    userId: number| string,
+  ): Promise<boolean>;
+
+  /**
    * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift restrictions from a user. Returns True on success.
    * @param user_id Unique identifier of the target user
    * @param extra Additional params for restrict chat member
