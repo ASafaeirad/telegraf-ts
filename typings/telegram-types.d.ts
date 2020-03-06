@@ -707,7 +707,7 @@ export interface ExtraStopPoll {
 }
 
 export interface IncomingMessage extends TT.Message {
-  entities?: TT.MessageEntity[]
+  entities?: MessageEntity[]
   dice?: Dice
   audio?: TT.Audio;
   caption?: string;
@@ -954,4 +954,51 @@ export interface Poll {
 
   /** 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot. */
   correct_option_id?: number
+}
+
+export type EntityType =
+  | "mention"
+  | "hashtag"
+  | "cashtag"
+  | "bot_command"
+  | "url"
+  | "email"
+  | "phone_number"
+  | "bold"
+  | "italic"
+  | "underline"
+  | "code"
+  | "pre"
+  | "text_link"
+  | "text_mention";
+
+export interface MessageEntity {
+  /**
+   * Type of the entity. Can be mention (@username), hashtag, cashtag,
+   * bot_command, url, email, phone_number, bold (bold text), italic (italic
+   * text), code (monowidth string), pre (monowidth block), text_link (for
+   * clickable text URLs), text_mention (for users without usernames)
+   * @see https://telegram.org/blog/edit#new-mentions
+   */
+  type: EntityType;
+
+  /**
+   * Offset in UTF-16 code units to the start of the entity
+   */
+  offset: number;
+
+  /**
+   * Length of the entity in UTF-16 code units
+   */
+  length: number;
+
+  /**
+   * For “text_link” only, url that will be opened after user taps on the text
+   */
+  url?: string;
+
+  /**
+   * For “text_mention” only, the mentioned user
+   */
+  user?: TT.User;
 }

@@ -167,7 +167,7 @@ export interface ContextMessageUpdate extends Context {
    * Use this method to send audio files to the same chat, if you want Telegram clients to display them in the music player.
    * Your audio must be in the .mp3 format.
    * Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.
-   * @param audio Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data
+   * @param audio Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HttP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data
    * @param extra Audio extra parameters
    * @returns On success, the sent Message is returned.
    */
@@ -194,7 +194,7 @@ export interface ContextMessageUpdate extends Context {
 
   /**
    * Use this method to send general files. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
-   * @param document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data
+   * @param document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HttP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data
    * @param extra Additional params for send document
    * @returns a Message on success
    */
@@ -262,7 +262,7 @@ export interface ContextMessageUpdate extends Context {
 
   /**
    * Use this method to send photos
-   * @param photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data
+   * @param photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HttP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data
    * @param extra Additional params to send photo
    * @returns a Message on success
    */
@@ -284,7 +284,7 @@ export interface ContextMessageUpdate extends Context {
 
   /**
    * Use this method to send .webp stickers
-   * @param sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .webp file from the Internet, or upload a new one using multipart/form-data
+   * @param sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HttP URL as a String for Telegram to get a .webp file from the Internet, or upload a new one using multipart/form-data
    * @param extra Additional params to send sticker
    * @returns a Message on success
    */
