@@ -5,6 +5,7 @@ import { Agent } from "https";
 import { TlsOptions } from "tls";
 
 import * as tt from "./telegram-types.d";
+export * from "./telegram-types";
 
 export interface TelegramOptions {
   /**
