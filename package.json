@@ -1,7 +1,7 @@
 {
-  "name": "telegraf",
+  "name": "telegraf-ts",
   "version": "3.38.0",
-  "description": "Modern Telegram Bot Framework",
+  "description": "Typescript telegraph fork",
   "license": "MIT",
   "author": "Vitaly Domnikov <oss@vitaly.codes>",
   "homepage": "https://github.com/telegraf/telegraf#readme",
