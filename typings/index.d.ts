@@ -1750,7 +1750,7 @@ export interface Telegraf<TContext extends ContextMessageUpdate>
     webhookResponse?: ServerResponse
   ): Promise<any>;
 
-  catch(logFn?: Function): void;
+  catch(handler: (error: Error, ctx: TContext) => void): void;
 }
 
 export type CallbackGame = string;
