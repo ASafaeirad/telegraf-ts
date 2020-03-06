@@ -12,9 +12,10 @@ export type MemberStatus =
   | "left"
   | "kicked";
 
-export type UserActions = keyof Permissions;
+export type AdminPermissions = keyof AdminPermissionsOption;
+export type UserPermissions = keyof UserPermissionsOption;
 
-interface Permissions {
+export interface AdminPermissionsOption {
   /**
    * Administrators only. True, if the bot is allowed to edit administrator
    * privileges of that user
@@ -96,10 +97,21 @@ interface Permissions {
   can_add_web_page_previews?: boolean;
 }
 
+export interface UserPermissionsOption {
+  can_send_messages?: boolean;
+  can_send_media_messages?: boolean;
+  can_send_other_messages?: boolean;
+  can_add_web_page_previews?: boolean;
+}
+
+export interface RestrictOptions extends UserPermissionsOption {
+  until_date?: number;
+}
+
 /**
  * This object contains information about one member of a chat.
  */
-export interface ChatMember extends Permissions {
+export interface ChatMember extends AdminPermissionsOption {
   /**
    * Information about the user
    */

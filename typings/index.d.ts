@@ -467,7 +467,18 @@ export interface ContextMessageUpdate extends Context {
    */
   promoteChatMember(
     userId: number,
-    permissions?: tt.Permissions
+    permissions?: tt.AdminPermissionsOption
+  ): Promise<boolean>;
+
+  /**
+   * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift restrictions from a user. Returns True on success.
+   * @param user_id Unique identifier of the target user
+   * @param extra Additional params for restrict chat member
+   * @returns True on success
+   */
+  restrictChatMember(
+    userId: number,
+    extra?: tt.RestrictOptions
   ): Promise<boolean>;
 }
 
@@ -792,13 +803,7 @@ export interface Telegram {
   restrictChatMember(
     chatId: string | number,
     userId: number,
-    extra?: {
-      until_date?: number;
-      can_send_messages?: boolean;
-      can_send_media_messages?: boolean;
-      can_send_other_messages?: boolean;
-      can_add_web_page_previews?: boolean;
-    }
+    extra?: tt.RestrictOptions
   ): Promise<boolean>;
 
   /**
@@ -1073,7 +1078,7 @@ export interface Telegram {
   promoteChatMember(
     chatId: number | string,
     userId: number,
-    permissions?: tt.Permissions
+    permissions?: tt.AdminPermissionsOption
   ): Promise<boolean>;
 
   /**
