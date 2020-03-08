@@ -1,16 +1,16 @@
 {
   "name": "telegraf-ts",
-  "version": "3.38.0",
-  "description": "Typescript telegraph fork",
+  "version": "3.88.0",
+  "description": "Well-Typed fork of telegraf",
   "license": "MIT",
   "author": "Vitaly Domnikov <oss@vitaly.codes>",
-  "homepage": "https://github.com/telegraf/telegraf#readme",
+  "homepage": "https://github.com/frontendmonster/telegraf-ts#readme",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/telegraf/telegraf.git"
+    "url": "git+ssh://git@github.com/frontendmonster/telegraf-ts.git"
   },
   "bugs": {
-    "url": "https://github.com/telegraf/telegraf/issues"
+    "url": "https://github.com/frontendmonster/telegraf-ts/issues"
   },
   "main": "telegraf.js",
   "files": [
