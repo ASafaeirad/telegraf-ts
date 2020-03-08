@@ -1,9 +1,9 @@
 {
   "name": "telegraf-ts",
-  "version": "3.88.0",
+  "version": "3.88.1",
   "description": "Well-Typed fork of telegraf",
   "license": "MIT",
-  "author": "Vitaly Domnikov <oss@vitaly.codes>",
+  "author": "frontendmonster <frontendmonster@gamil.com>",
   "homepage": "https://github.com/frontendmonster/telegraf-ts#readme",
   "repository": {
     "type": "git",
@@ -57,6 +57,7 @@
   },
   "keywords": [
     "telegraf",
+		"typescript",
     "telegram",
     "telegram bot api",
     "bot",
