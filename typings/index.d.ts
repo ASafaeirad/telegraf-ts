@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
-import { IncomingMessage, ServerResponse } from "http";
-import { Agent } from "https";
-import { TlsOptions } from "tls";
+import { IncomingMessage, ServerResponse } from 'http';
+import { Agent } from 'https';
+import { TlsOptions } from 'tls';
 
-import * as tt from "./telegram-types.d";
-export * from "./telegram-types";
+import * as tt from './telegram-types.d';
+export * from './telegram-types';
 
 export interface TelegramOptions {
   /**
@@ -48,7 +48,7 @@ export interface ContextMessageUpdate extends Context {
   new (
     update: any,
     telegram: Telegram,
-    options: TOptions
+    options: TOptions,
   ): ContextMessageUpdate;
 
   /**
@@ -63,7 +63,7 @@ export interface ContextMessageUpdate extends Context {
     ownerId: number,
     name: string,
     stickerData: tt.StickerData,
-    isMasks: boolean
+    isMasks: boolean,
   ): Promise<boolean>;
 
   /**
@@ -78,7 +78,7 @@ export interface ContextMessageUpdate extends Context {
     ownerId: number,
     name: string,
     title: string,
-    stickerData: tt.StickerData
+    stickerData: tt.StickerData,
   ): Promise<boolean>;
 
   /**
@@ -146,7 +146,7 @@ export interface ContextMessageUpdate extends Context {
    */
   pinChatMessage(
     messageId: number,
-    extra?: { disable_notification?: boolean }
+    extra?: { disable_notification?: boolean },
   ): Promise<boolean>;
 
   /**
@@ -173,7 +173,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithAudio(
     audio: tt.InputFile,
-    extra?: tt.ExtraAudio
+    extra?: tt.ExtraAudio,
   ): Promise<tt.MessageAudio>;
 
   /**
@@ -200,7 +200,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithDocument(
     document: tt.InputFile,
-    extra?: tt.ExtraDocument
+    extra?: tt.ExtraDocument,
   ): Promise<tt.MessageDocument>;
 
   /**
@@ -211,7 +211,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithGame(
     gameShortName: string,
-    extra?: tt.ExtraGame
+    extra?: tt.ExtraGame,
   ): Promise<tt.MessageGame>;
 
   /**
@@ -222,7 +222,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithHTML(
     html: string,
-    extra?: tt.ExtraReplyMessage
+    extra?: tt.ExtraReplyMessage,
   ): Promise<tt.Message>;
 
   /**
@@ -233,7 +233,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithInvoice(
     invoice: tt.NewInvoiceParams,
-    extra?: tt.ExtraInvoice
+    extra?: tt.ExtraInvoice,
   ): Promise<tt.MessageInvoice>;
 
   /**
@@ -246,7 +246,7 @@ export interface ContextMessageUpdate extends Context {
   replyWithLocation(
     latitude: number,
     longitude: number,
-    extra?: tt.ExtraLocation
+    extra?: tt.ExtraLocation,
   ): Promise<tt.MessageLocation>;
 
   /**
@@ -257,7 +257,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithMarkdown(
     markdown: string,
-    extra?: tt.ExtraReplyMessage
+    extra?: tt.ExtraReplyMessage,
   ): Promise<tt.Message>;
 
   /**
@@ -268,7 +268,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithPhoto(
     photo: tt.InputFile,
-    extra?: tt.ExtraPhoto
+    extra?: tt.ExtraPhoto,
   ): Promise<tt.MessagePhoto>;
 
   /**
@@ -279,7 +279,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithMediaGroup(
     media: tt.MessageMedia[],
-    extra?: tt.ExtraMediaGroup
+    extra?: tt.ExtraMediaGroup,
   ): Promise<Array<tt.Message>>;
 
   /**
@@ -290,7 +290,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithSticker(
     sticker: tt.InputFile,
-    extra?: tt.ExtraSticker
+    extra?: tt.ExtraSticker,
   ): Promise<tt.MessageSticker>;
 
   /**
@@ -302,7 +302,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithVideo(
     video: tt.InputFile,
-    extra?: tt.ExtraVideo
+    extra?: tt.ExtraVideo,
   ): Promise<tt.MessageVideo>;
 
   /**
@@ -313,7 +313,7 @@ export interface ContextMessageUpdate extends Context {
    */
   replyWithVoice(
     voice: tt.InputFile,
-    extra?: tt.ExtraVoice
+    extra?: tt.ExtraVoice,
   ): Promise<tt.MessageVoice>;
 
   // ------------------------------------------------------------------------------------------ //
@@ -328,13 +328,13 @@ export interface ContextMessageUpdate extends Context {
    */
   answerInlineQuery(
     results: tt.InlineQueryResult[],
-    extra?: tt.ExtraAnswerInlineQuery
+    extra?: tt.ExtraAnswerInlineQuery,
   ): Promise<boolean>;
 
   answerCbQuery(
     text?: string,
     showAlert?: boolean,
-    extra?: object
+    extra?: object,
   ): Promise<boolean>;
 
   /**
@@ -352,7 +352,7 @@ export interface ContextMessageUpdate extends Context {
   answerShippingQuery(
     ok: boolean,
     shippingOptions: tt.ShippingOption[],
-    errorMessage: string
+    errorMessage: string,
   ): Promise<boolean>;
 
   /**
@@ -371,7 +371,7 @@ export interface ContextMessageUpdate extends Context {
    */
   answerInlineQuery(
     results: tt.InlineQueryResult[],
-    extra?: tt.ExtraAnswerInlineQuery
+    extra?: tt.ExtraAnswerInlineQuery,
   ): Promise<boolean>;
 
   /**
@@ -390,7 +390,7 @@ export interface ContextMessageUpdate extends Context {
    */
   editMessageCaption(
     caption?: string,
-    markup?: tt.InlineKeyboardMarkup
+    markup?: tt.InlineKeyboardMarkup,
   ): Promise<tt.Message | boolean>;
 
   /**
@@ -399,7 +399,7 @@ export interface ContextMessageUpdate extends Context {
    * @param markup Markup of inline keyboard
    */
   editMessageReplyMarkup(
-    markup?: tt.InlineKeyboardMarkup
+    markup?: tt.InlineKeyboardMarkup,
   ): Promise<tt.Message | boolean>;
 
   /**
@@ -410,7 +410,7 @@ export interface ContextMessageUpdate extends Context {
    */
   editMessageMedia(
     media: tt.MessageMedia,
-    extra?: tt.ExtraEditMessage
+    extra?: tt.ExtraEditMessage,
   ): Promise<tt.Message | boolean>;
 
   /**
@@ -433,7 +433,7 @@ export interface ContextMessageUpdate extends Context {
    */
   uploadStickerFile(
     ownerId: number,
-    stickerFile: tt.InputFile
+    stickerFile: tt.InputFile,
   ): Promise<tt.File>;
 
   /**
@@ -467,7 +467,7 @@ export interface ContextMessageUpdate extends Context {
    */
   promoteChatMember(
     userId: number,
-    permissions?: tt.AdminPermissionsOption
+    permissions?: tt.AdminPermissionsOption,
   ): Promise<boolean>;
 
   /**
@@ -475,9 +475,7 @@ export interface ContextMessageUpdate extends Context {
    * @param userId Unique identifier of the target user
    * @returns True on success
    */
-  unbanChatMember(
-    userId: number| string,
-  ): Promise<boolean>;
+  unbanChatMember(userId: number | string): Promise<boolean>;
 
   /**
    * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift restrictions from a user. Returns True on success.
@@ -487,7 +485,7 @@ export interface ContextMessageUpdate extends Context {
    */
   restrictChatMember(
     userId: number,
-    extra?: tt.RestrictOptions
+    extra?: tt.RestrictOptions,
   ): Promise<boolean>;
 }
 
@@ -519,7 +517,7 @@ export interface SceneContext<TContext extends SceneContextMessageUpdate> {
   enter: (
     sceneId: string,
     initialState?: object,
-    silent?: boolean
+    silent?: boolean,
   ) => Promise<any>;
 
   reenter: () => Promise<any>;
@@ -566,7 +564,7 @@ export interface Telegram {
     shippingQueryId: string,
     ok: boolean,
     shippingOptions: Array<tt.ShippingOption>,
-    errorMessage: string
+    errorMessage: string,
   ): Promise<boolean>;
 
   /**
@@ -580,7 +578,7 @@ export interface Telegram {
   answerPreCheckoutQuery(
     preCheckoutQueryId: string,
     ok: boolean,
-    errorMessage?: string
+    errorMessage?: string,
   ): Promise<boolean>;
 
   /**
@@ -593,7 +591,7 @@ export interface Telegram {
   answerInlineQuery(
     inlineQueryId: string,
     results: Array<tt.InlineQueryResult>,
-    extra?: tt.ExtraAnswerInlineQuery
+    extra?: tt.ExtraAnswerInlineQuery,
   ): Promise<boolean>;
 
   /**
@@ -608,7 +606,7 @@ export interface Telegram {
     chatId: number | string,
     fromChatId: number | string,
     messageId: string | number,
-    extra?: { disable_notification?: boolean }
+    extra?: { disable_notification?: boolean },
   ): Promise<tt.Message>;
 
   /**
@@ -625,7 +623,7 @@ export interface Telegram {
     messageId: number | void,
     inlineMessageId: string | void,
     text: string,
-    extra?: tt.ExtraEditMessage
+    extra?: tt.ExtraEditMessage,
   ): Promise<tt.Message | boolean>;
 
   /**
@@ -642,7 +640,7 @@ export interface Telegram {
     messageId?: number,
     inlineMessageId?: string,
     caption?: string,
-    markup?: string
+    markup?: string,
   ): Promise<tt.Message | boolean>;
 
   /**
@@ -657,7 +655,7 @@ export interface Telegram {
     chatId?: number | string,
     messageId?: number,
     inlineMessageId?: string,
-    markup?: string
+    markup?: string,
   ): Promise<tt.Message | boolean>;
 
   /**
@@ -689,7 +687,7 @@ export interface Telegram {
    */
   uploadStickerFile(
     ownerId: number,
-    stickerFile: tt.InputFile
+    stickerFile: tt.InputFile,
   ): Promise<tt.File>;
 
   /**
@@ -704,7 +702,7 @@ export interface Telegram {
     ownerId: number,
     name: string,
     title: string,
-    stickerData: tt.StickerData
+    stickerData: tt.StickerData,
   ): Promise<boolean>;
 
   /**
@@ -719,7 +717,7 @@ export interface Telegram {
     ownerId: number,
     name: string,
     stickerData: tt.StickerData,
-    isMasks: boolean
+    isMasks: boolean,
   ): Promise<boolean>;
 
   /**
@@ -747,7 +745,7 @@ export interface Telegram {
   sendCopy(
     chatId: number | string,
     message?: tt.Message,
-    extra?: object
+    extra?: object,
   ): Promise<tt.Message>;
 
   /**
@@ -792,7 +790,7 @@ export interface Telegram {
    */
   getChatMember(
     chatId: string | number,
-    userId: number
+    userId: number,
   ): Promise<tt.ChatMember>;
 
   /**
@@ -812,7 +810,7 @@ export interface Telegram {
   restrictChatMember(
     chatId: string | number,
     userId: number,
-    extra?: tt.RestrictOptions
+    extra?: tt.RestrictOptions,
   ): Promise<boolean>;
 
   /**
@@ -832,7 +830,7 @@ export interface Telegram {
   pinChatMessage(
     chatId: number | string,
     messageId: number,
-    extra?: { disable_notification?: boolean }
+    extra?: { disable_notification?: boolean },
   ): Promise<boolean>;
 
   /**
@@ -852,7 +850,7 @@ export interface Telegram {
   sendMessage(
     chatId: number | string,
     text: string,
-    extra?: tt.ExtraEditMessage
+    extra?: tt.ExtraEditMessage,
   ): Promise<tt.Message>;
 
   /**
@@ -867,7 +865,7 @@ export interface Telegram {
   sendAudio(
     chatId: number | string,
     audio: tt.InputFile,
-    extra?: tt.ExtraAudio
+    extra?: tt.ExtraAudio,
   ): Promise<tt.MessageAudio>;
 
   /**
@@ -887,7 +885,7 @@ export interface Telegram {
    */
   sendChatAction(
     chatId: number | string,
-    action: tt.ChatAction
+    action: tt.ChatAction,
   ): Promise<boolean>;
 
   /**
@@ -900,7 +898,7 @@ export interface Telegram {
   sendDocument(
     chatId: number | string,
     document: tt.InputFile,
-    extra?: tt.ExtraDocument
+    extra?: tt.ExtraDocument,
   ): Promise<tt.MessageDocument>;
 
   /**
@@ -913,7 +911,7 @@ export interface Telegram {
   sendGame(
     chatId: number | string,
     gameShortName: string,
-    extra?: tt.ExtraGame
+    extra?: tt.ExtraGame,
   ): Promise<tt.MessageGame>;
 
   /**
@@ -926,7 +924,7 @@ export interface Telegram {
   sendInvoice(
     chatId: number,
     invoice: tt.NewInvoiceParams,
-    extra?: tt.ExtraInvoice
+    extra?: tt.ExtraInvoice,
   ): Promise<tt.MessageInvoice>;
 
   /**
@@ -941,7 +939,7 @@ export interface Telegram {
     chatId: number | string,
     latitude: number,
     longitude: number,
-    extra?: tt.ExtraLocation
+    extra?: tt.ExtraLocation,
   ): Promise<tt.MessageLocation>;
 
   /**
@@ -954,7 +952,7 @@ export interface Telegram {
   sendPhoto(
     chatId: number | string,
     photo: tt.InputFile,
-    extra?: tt.ExtraPhoto
+    extra?: tt.ExtraPhoto,
   ): Promise<tt.MessagePhoto>;
 
   /**
@@ -967,7 +965,7 @@ export interface Telegram {
   sendMediaGroup(
     chatId: number | string,
     media: tt.MessageMedia[],
-    extra?: tt.ExtraMediaGroup
+    extra?: tt.ExtraMediaGroup,
   ): Promise<Array<tt.Message>>;
 
   /**
@@ -980,7 +978,7 @@ export interface Telegram {
   sendAnimation(
     chatId: number | string,
     animation: tt.InputFile,
-    extra?: tt.ExtraAnimation
+    extra?: tt.ExtraAnimation,
   ): Promise<tt.MessageAnimation>;
 
   /**
@@ -993,7 +991,7 @@ export interface Telegram {
   sendSticker(
     chatId: number | string,
     sticker: tt.InputFile,
-    extra?: tt.ExtraSticker
+    extra?: tt.ExtraSticker,
   ): Promise<tt.MessageSticker>;
 
   /**
@@ -1007,7 +1005,7 @@ export interface Telegram {
   sendVideo(
     chatId: number | string,
     video: tt.InputFile,
-    extra?: tt.ExtraVideo
+    extra?: tt.ExtraVideo,
   ): Promise<tt.MessageVideo>;
 
   /**
@@ -1020,7 +1018,7 @@ export interface Telegram {
   sendVoice(
     chatId: number | string,
     voice: tt.InputFile,
-    extra?: tt.ExtraVoice
+    extra?: tt.ExtraVoice,
   ): Promise<tt.MessageVoice>;
 
   /**
@@ -1035,7 +1033,7 @@ export interface Telegram {
     url: string,
     cert?: tt.InputFile,
     maxConnections?: number,
-    allowedUpdates?: string[]
+    allowedUpdates?: string[],
   ): Promise<boolean>;
 
   /**
@@ -1074,7 +1072,7 @@ export interface Telegram {
   kickChatMember(
     chatId: number | string,
     userId: number,
-    untilDate?: number
+    untilDate?: number,
   ): Promise<boolean>;
 
   /**
@@ -1087,7 +1085,7 @@ export interface Telegram {
   promoteChatMember(
     chatId: number | string,
     userId: number,
-    permissions?: tt.AdminPermissionsOption
+    permissions?: tt.AdminPermissionsOption,
   ): Promise<boolean>;
 
   /**
@@ -1298,7 +1296,7 @@ export interface ComposerConstructor {
    * @param middlewares Array of middlewares functions
    */
   compose<TContext extends ContextMessageUpdate>(
-    middlewares: Array<Handler<any>>
+    middlewares: Array<Handler<any>>,
   ): Middleware<TContext>;
 
   /**
@@ -1368,7 +1366,7 @@ export interface ComposerConstructor {
    * @param test  Value or predicate (ctx) => bool
    */
   filter<TContext extends ContextMessageUpdate>(
-    perdicate: Predicate<TContext>
+    perdicate: Predicate<TContext>,
   ): Middleware<TContext>;
 
   /**
@@ -1376,7 +1374,7 @@ export interface ComposerConstructor {
    * @param test  Value or predicate (ctx) => bool
    */
   drop<TContext extends ContextMessageUpdate>(
-    perdicate: Predicate<TContext>
+    perdicate: Predicate<TContext>,
   ): Middleware<TContext>;
 
   /**
@@ -1393,23 +1391,23 @@ export interface ComposerConstructor {
   >(
     perdicate: Predicate<TContext>,
     trueMiddleware: Handler<UContext>,
-    falseMiddleware: Handler<VContext>
+    falseMiddleware: Handler<VContext>,
   ): Middleware<WContext>;
 
   reply<TContext extends ContextMessageUpdate>(
     text: string,
-    extra?: tt.ExtraReplyMessage
+    extra?: tt.ExtraReplyMessage,
   ): Middleware<TContext>;
 
   /**
    * Allows it to console.log each request received.
    */
   fork<TContext extends ContextMessageUpdate>(
-    middleware: Handler<TContext>
+    middleware: Handler<TContext>,
   ): Function;
 
   tap<TContext extends ContextMessageUpdate>(
-    middleware: Handler<TContext>
+    middleware: Handler<TContext>,
   ): Function;
 
   log(logFn?: Function): Middleware<ContextMessageUpdate>;
@@ -1601,14 +1599,14 @@ export interface ComposerConstructor {
     TContext extends ContextMessageUpdate,
     UContext extends ContextMessageUpdate = TContext
   >(
-    middleware: Handler<TContext>
+    middleware: Handler<TContext>,
   ): Middleware<UContext>;
 
   compose<
     TContext extends ContextMessageUpdate,
     UContext extends ContextMessageUpdate = TContext
   >(
-    middleware: Handler<TContext>[]
+    middleware: Handler<TContext>[],
   ): Middleware<UContext>;
 }
 
@@ -1716,7 +1714,7 @@ export interface Telegraf<TContext extends ContextMessageUpdate>
     timeout?: number,
     limit?: number,
     allowedUpdates?: tt.UpdateType[] | tt.UpdateType | null,
-    stopCallback?: () => void | null
+    stopCallback?: () => void | null,
   ): Telegraf<TContext>;
 
   /**
@@ -1732,7 +1730,7 @@ export interface Telegraf<TContext extends ContextMessageUpdate>
     tlsOptions?: TlsOptions | null,
     port?: number,
     host?: string,
-    cb?: (req: IncomingMessage, res: ServerResponse) => void
+    cb?: (req: IncomingMessage, res: ServerResponse) => void,
   ): Telegraf<TContext>;
 
   /**
@@ -1746,7 +1744,7 @@ export interface Telegraf<TContext extends ContextMessageUpdate>
    * @param hookPath Webhook url path (see Telegraf.setWebhook)
    */
   webhookCallback(
-    hookPath: string
+    hookPath: string,
   ): (req: IncomingMessage, res: ServerResponse) => void;
 
   /**
@@ -1756,7 +1754,7 @@ export interface Telegraf<TContext extends ContextMessageUpdate>
    */
   handleUpdate(
     rawUpdate: tt.Update,
-    webhookResponse?: ServerResponse
+    webhookResponse?: ServerResponse,
   ): Promise<any>;
 
   catch(handler: (error: Error, ctx: TContext) => void): void;
@@ -1838,7 +1836,7 @@ export class Markup {
 
   keyboard(
     buttons: (Buttons | string)[] | (Buttons | string)[][],
-    options?: object
+    options?: object,
   ): Markup & tt.ReplyKeyboardMarkup;
 
   resize(value?: boolean): Markup;
@@ -1847,7 +1845,7 @@ export class Markup {
 
   inlineKeyboard(
     buttons: Buttons[] | Buttons[][],
-    options: object
+    options: object,
   ): Markup & tt.InlineKeyboardMarkup;
 
   button(text: string, hide: boolean): Button;
@@ -1863,13 +1861,13 @@ export class Markup {
   switchToChatButton(
     text: string,
     value: string,
-    hide: boolean
+    hide: boolean,
   ): SwitchToChatButton;
 
   switchToCurrentChatButton(
     text: string,
     value: string,
-    hide: boolean
+    hide: boolean,
   ): SwitchToCurrentChatButton;
 
   gameButton(text: string, hide: boolean): GameButton;
@@ -1882,12 +1880,12 @@ export class Markup {
 
   static keyboard(
     buttons: (Buttons | string)[] | (Buttons | string)[][],
-    options?: object
+    options?: object,
   ): Markup & tt.ReplyKeyboardMarkup;
 
   static inlineKeyboard(
     buttons: (CallbackButton | UrlButton)[] | (CallbackButton | UrlButton)[][],
-    options?: object
+    options?: object,
   ): Markup & tt.InlineKeyboardMarkup;
 
   static resize(value?: boolean): Markup;
@@ -1900,12 +1898,12 @@ export class Markup {
 
   static contactRequestButton(
     text: string,
-    hide?: boolean
+    hide?: boolean,
   ): ContactRequestButton;
 
   static locationRequestButton(
     text: string,
-    hide?: boolean
+    hide?: boolean,
   ): LocationRequestButton;
 
   static urlButton(text: string, url: string, hide?: boolean): UrlButton;
@@ -1913,19 +1911,19 @@ export class Markup {
   static callbackButton(
     text: string,
     data: string,
-    hide?: boolean
+    hide?: boolean,
   ): CallbackButton;
 
   static switchToChatButton(
     text: string,
     value: string,
-    hide?: boolean
+    hide?: boolean,
   ): SwitchToChatButton;
 
   static switchToCurrentChatButton(
     text: string,
     value: string,
-    hide?: boolean
+    hide?: boolean,
   ): SwitchToCurrentChatButton;
 
   static gameButton(text: string, hide?: boolean): GameButton;
@@ -2014,7 +2012,7 @@ export class Stage<TContext extends SceneContextMessageUpdate> extends Composer<
   static enter: (
     sceneId: string,
     initialState?: object,
-    silent?: boolean
+    silent?: boolean,
   ) => Middleware<SceneContextMessageUpdate>;
 
   static reenter: () => Middleware<SceneContextMessageUpdate>;
@@ -2028,7 +2026,7 @@ export function session<TContext extends ContextMessageUpdate>(
     store: Map<string, any>;
     getSessionKey: (ctx: TContext) => string;
     ttl: number;
-  }>
+  }>,
 ): Middleware<TContext>;
 
 export interface TelegrafConstructor extends ComposerConstructor {
@@ -2041,7 +2039,7 @@ export interface TelegrafConstructor extends ComposerConstructor {
    */
   new <TContext extends ContextMessageUpdate>(
     token: string,
-    options?: TelegrafOptions
+    options?: TelegrafOptions,
   ): Telegraf<TContext>;
 
   Context: ContextMessageUpdate;

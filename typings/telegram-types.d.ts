@@ -1,16 +1,17 @@
+/* eslint-disable max-lines */
 /// <reference types="node" />
 
-import * as fs from "fs";
+import * as fs from 'fs';
 
-export type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
+export type ParseMode = 'Markdown' | 'MarkdownV2' | 'HTML';
 
 export type MemberStatus =
-  | "creator"
-  | "administrator"
-  | "member"
-  | "restricted"
-  | "left"
-  | "kicked";
+  | 'creator'
+  | 'administrator'
+  | 'member'
+  | 'restricted'
+  | 'left'
+  | 'kicked';
 
 export type AdminPermissions = keyof AdminPermissionsOption;
 export type UserPermissions = keyof UserPermissionsOption;
@@ -131,61 +132,62 @@ export interface ChatMember extends AdminPermissionsOption {
 }
 
 export type ChatAction =
-  | "typing"
-  | "upload_photo"
-  | "record_video"
-  | "upload_video"
-  | "record_audio"
-  | "upload_audio"
-  | "upload_document"
-  | "find_location"
-  | "record_video_note"
-  | "upload_video_note";
-
-export type ChatType = "private" | "group" | "supergroup" | "channel";
+  | 'typing'
+  | 'upload_photo'
+  | 'record_video'
+  | 'upload_video'
+  | 'record_audio'
+  | 'upload_audio'
+  | 'upload_document'
+  | 'find_location'
+  | 'record_video_note'
+  | 'upload_video_note';
 
 export type UpdateType =
-  'callback_query' |
-  'channel_post' |
-  'chosen_inline_result' |
-  'edited_channel_post' |
-  'edited_message' |
-  'inline_query' |
-  'message' |
-  'pre_checkout_query' |
-  'shipping_query' |
-  'poll' |
-  'poll_answer'
+  | ‌'callback_query'
+  | 'channel_post'
+  | 'chosen_inline_result'
+  | 'edited_channel_post'
+  | 'edited_message'
+  | 'inline_query'
+  | 'message'
+  | 'pre_checkout_query'
+  | 'shipping_query'
+  | 'poll'
+  | 'poll_answer';
+
+export type ChatType = 'private' | 'group' | 'supergroup' | 'channel';
+
 
 export type MessageSubTypes =
-  | "voice"
-  | "video_note"
-  | "video"
-  | "venue"
-  | "text"
-  | "supergroup_chat_created"
-  | "successful_payment"
-  | "sticker"
-  | "pinned_message"
-  | "photo"
-  | "new_chat_title"
-  | "new_chat_photo"
-  | "new_chat_members"
-  | "migrate_to_chat_id"
-  | "migrate_from_chat_id"
-  | "location"
-  | "left_chat_member"
-  | "invoice"
-  | "group_chat_created"
-  | "game"
-  | "document"
-  | "delete_chat_photo"
-  | "contact"
-  | "channel_chat_created"
-  | "audio"
-  | "passport_data"
-  | "connected_website"
-  | "animation";
+  | 'voice'
+  | 'video_note'
+  | 'video'
+  | 'venue'
+  | 'text'
+  | 'supergroup_chat_created'
+  | 'successful_payment'
+  | 'sticker'
+  | 'pinned_message'
+  | 'photo'
+  | 'new_chat_title'
+  | 'new_chat_photo'
+  | 'new_chat_members'
+  | 'migrate_to_chat_id'
+  | 'migrate_from_chat_id'
+  | 'location'
+  | 'left_chat_member'
+  | 'invoice'
+  | 'group_chat_created'
+  | 'game'
+  | 'document'
+  | 'delete_chat_photo'
+  | 'contact'
+  | 'channel_chat_created'
+  | 'audio'
+  | 'passport_data'
+  | 'connected_website'
+  | 'animation';
 
 /**
  * This object represents one result of an inline query
@@ -1294,20 +1296,20 @@ export interface Poll {
 }
 
 export type EntityType =
-  | "mention"
-  | "hashtag"
-  | "cashtag"
-  | "bot_command"
-  | "url"
-  | "email"
-  | "phone_number"
-  | "bold"
-  | "italic"
-  | "underline"
-  | "code"
-  | "pre"
-  | "text_link"
-  | "text_mention";
+  | 'mention'
+  | 'hashtag'
+  | 'cashtag'
+  | 'bot_command'
+  | 'url'
+  | 'email'
+  | 'phone_number'
+  | 'bold'
+  | 'italic'
+  | 'underline'
+  | 'code'
+  | 'pre'
+  | 'text_link'
+  | 'text_mention';
 
 /**
  * This object represents one special entity in a text message. For
@@ -2195,7 +2197,7 @@ export interface InputMediaPhoto {
   /**
    * Type of the result, must be photo
    */
-  type: "photo";
+  type: 'photo';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram
@@ -2229,7 +2231,7 @@ export interface InputMediaVideo {
   /**
    * Type of the result, must be video
    */
-  type: "video";
+  type: 'video';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram
@@ -2296,7 +2298,7 @@ export interface InputMediaAnimation {
   /**
    * Type of the result, must be animation
    */
-  type: "animation";
+  type: 'animation';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram
@@ -2357,7 +2359,7 @@ export interface InputMediaAudio {
   /**
    * Type of the result, must be audio
    */
-  type: "audio";
+  type: 'audio';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram
@@ -2418,7 +2420,7 @@ export interface InputMediaDocument {
   /**
    * Type of the result, must be document
    */
-  type: "document";
+  type: 'document';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram
@@ -2596,7 +2598,7 @@ export interface InlineQueryResultArticle {
   /**
    * Type of the result, must be article
    */
-  type: string;
+  type: 'article';
 
   /**
    * Unique identifier for this result, 1-64 Bytes
@@ -2660,7 +2662,7 @@ export interface InlineQueryResultPhoto {
   /**
    * Type of the result, must be photo
    */
-  type: string;
+  type: 'photo';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -2734,7 +2736,7 @@ export interface InlineQueryResultGif {
   /**
    * Type of the result, must be gif
    */
-  type: string;
+  type: 'gif';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -2807,7 +2809,7 @@ export interface InlineQueryResultMpeg4Gif {
   /**
    * Type of the result, must be mpeg4_gif
    */
-  type: string;
+  type: 'mpeg4_gif';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -2880,7 +2882,7 @@ export interface InlineQueryResultVideo {
   /**
    * Type of the result, must be video
    */
-  type: string;
+  type: 'video';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -2895,7 +2897,7 @@ export interface InlineQueryResultVideo {
   /**
    * Mime type of the content of video url, “text/html” or “video/mp4”
    */
-  mime_type: string;
+  mime_type: 'text/html' | 'video/mp4';
 
   /**
    * URL of the thumbnail (jpeg only) for the video
@@ -2964,7 +2966,7 @@ export interface InlineQueryResultAudio {
   /**
    * Type of the result, must be audio
    */
-  type: string;
+  type: 'audio';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3027,7 +3029,7 @@ export interface InlineQueryResultVoice {
   /**
    * Type of the result, must be voice
    */
-  type: string;
+  type: 'voice';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3086,7 +3088,7 @@ export interface InlineQueryResultDocument {
   /**
    * Type of the result, must be document
    */
-  type: string;
+  type: 'document';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3120,7 +3122,7 @@ export interface InlineQueryResultDocument {
   /**
    * Mime type of the content of the file, either “application/pdf” or “application/zip”
    */
-  mime_type: string;
+  mime_type: 'application/pdf' | 'application/zip';
 
   /**
    * Short description of the result
@@ -3162,7 +3164,7 @@ export interface InlineQueryResultLocation {
   /**
    * Type of the result, must be location
    */
-  type: string;
+  type: 'location';
 
   /**
    * Unique identifier for this result, 1-64 Bytes
@@ -3226,7 +3228,7 @@ export interface InlineQueryResultVenue {
   /**
    * Type of the result, must be venue
    */
-  type: string;
+  type: 'venue';
 
   /**
    * Unique identifier for this result, 1-64 Bytes
@@ -3300,7 +3302,7 @@ export interface InlineQueryResultContact {
   /**
    * Type of the result, must be contact
    */
-  type: string;
+  type: 'contact';
 
   /**
    * Unique identifier for this result, 1-64 Bytes
@@ -3363,7 +3365,7 @@ export interface InlineQueryResultGame {
   /**
    * Type of the result, must be game
    */
-  type: string;
+  type: 'game';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3392,7 +3394,7 @@ export interface InlineQueryResultCachedPhoto {
   /**
    * Type of the result, must be photo
    */
-  type: string;
+  type: 'photo';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3451,7 +3453,7 @@ export interface InlineQueryResultCachedGif {
   /**
    * Type of the result, must be gif
    */
-  type: string;
+  type: 'gif';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3505,7 +3507,7 @@ export interface InlineQueryResultCachedMpeg4Gif {
   /**
    * Type of the result, must be mpeg4_gif
    */
-  type: string;
+  type: 'mpeg4_gif';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3558,7 +3560,7 @@ export interface InlineQueryResultCachedSticker {
   /**
    * Type of the result, must be sticker
    */
-  type: string;
+  type: 'sticker';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3592,7 +3594,7 @@ export interface InlineQueryResultCachedDocument {
   /**
    * Type of the result, must be document
    */
-  type: string;
+  type: 'docuemnt';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3650,7 +3652,7 @@ export interface InlineQueryResultCachedVideo {
   /**
    * Type of the result, must be video
    */
-  type: string;
+  type: 'video';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3708,7 +3710,7 @@ export interface InlineQueryResultCachedVoice {
   /**
    * Type of the result, must be voice
    */
-  type: string;
+  type: 'voice';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -3761,7 +3763,7 @@ export interface InlineQueryResultCachedAudio {
   /**
    * Type of the result, must be audio
    */
-  type: string;
+  type: 'audio';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -4231,14 +4233,20 @@ export interface PassportElementErrorDataField {
   /**
    * Error source, must be data
    */
-  source: string;
+  source: 'data';
 
   /**
    * The section of the user's Telegram Passport which has the error, one of
    * “personal_details”, “passport”, “driver_license”, “identity_card”,
    * “internal_passport”, “address”
    */
-  type: string;
+  type:
+    | 'personal_details'
+    | 'passport'
+    | 'driver_license'
+    | 'identity_card'
+    | 'internal_passport'
+    | 'address';
 
   /**
    * Name of the data field which has the error
@@ -4264,7 +4272,7 @@ export interface PassportElementErrorFrontSide {
   /**
    * Error source, must be front_side
    */
-  source: string;
+  source: 'front_side';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of
@@ -4291,7 +4299,7 @@ export interface PassportElementErrorReverseSide {
   /**
    * Error source, must be reverse_side
    */
-  source: string;
+  source: 'reverse_side';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of
@@ -4318,7 +4326,7 @@ export interface PassportElementErrorSelfie {
   /**
    * Error source, must be selfie
    */
-  source: string;
+  source: 'selfie';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of
@@ -4345,7 +4353,7 @@ export interface PassportElementErrorFile {
   /**
    * Error source, must be file
    */
-  source: string;
+  source: 'file';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of
@@ -4373,7 +4381,7 @@ export interface PassportElementErrorFiles {
   /**
    * Error source, must be files
    */
-  source: string;
+  source: 'files';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of
