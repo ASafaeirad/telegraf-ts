@@ -47,7 +47,8 @@
     "ava": "^3.0.0",
     "eslint": "^6.2.2",
     "husky": "^4.2.0",
-    "prettier": "2.0.5",
+    "np": "6.2.0",
+    "prettier": "2.0.2",
     "typescript": "^3.0.1"
   },
   "keywords": [
