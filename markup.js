@@ -1,190 +1,193 @@
 class Markup {
-  forceReply (value = true) {
-    this.force_reply = value
-    return this
+  forceReply(value = true) {
+    this.force_reply = value;
+    return this;
   }
 
-  removeKeyboard (value = true) {
-    this.remove_keyboard = value
-    return this
+  removeKeyboard(value = true) {
+    this.remove_keyboard = value;
+    return this;
   }
 
-  selective (value = true) {
-    this.selective = value
-    return this
+  selective(value = true) {
+    this.selective = value;
+    return this;
   }
 
-  extra (options) {
+  extra(options) {
     return {
       reply_markup: { ...this },
-      ...options
-    }
+      ...options,
+    };
   }
 
-  keyboard (buttons, options) {
-    const keyboard = buildKeyboard(buttons, { columns: 1, ...options })
+  keyboard(buttons, options) {
+    const keyboard = buildKeyboard(buttons, { columns: 1, ...options });
     if (keyboard && keyboard.length > 0) {
-      this.keyboard = keyboard
+      this.keyboard = keyboard;
     }
-    return this
+    return this;
   }
 
-  resize (value = true) {
-    this.resize_keyboard = value
-    return this
+  resize(value = true) {
+    this.resize_keyboard = value;
+    return this;
   }
 
-  oneTime (value = true) {
-    this.one_time_keyboard = value
-    return this
+  oneTime(value = true) {
+    this.one_time_keyboard = value;
+    return this;
   }
 
-  inlineKeyboard (buttons, options) {
-    const keyboard = buildKeyboard(buttons, { columns: buttons.length, ...options })
+  inlineKeyboard(buttons, options) {
+    const keyboard = buildKeyboard(buttons, {
+      columns: buttons.length,
+      ...options,
+    });
     if (keyboard && keyboard.length > 0) {
-      this.inline_keyboard = keyboard
+      this.inline_keyboard = keyboard;
     }
-    return this
+    return this;
   }
 
-  button (text, hide) {
-    return Markup.button(text, hide)
+  button(text, hide) {
+    return Markup.button(text, hide);
   }
 
-  contactRequestButton (text, hide) {
-    return Markup.contactRequestButton(text, hide)
+  contactRequestButton(text, hide) {
+    return Markup.contactRequestButton(text, hide);
   }
 
-  locationRequestButton (text, hide) {
-    return Markup.locationRequestButton(text, hide)
+  locationRequestButton(text, hide) {
+    return Markup.locationRequestButton(text, hide);
   }
 
-  urlButton (text, url, hide) {
-    return Markup.urlButton(text, url, hide)
+  urlButton(text, url, hide) {
+    return Markup.urlButton(text, url, hide);
   }
 
-  callbackButton (text, data, hide) {
-    return Markup.callbackButton(text, data, hide)
+  callbackButton(text, data, hide) {
+    return Markup.callbackButton(text, data, hide);
   }
 
-  switchToChatButton (text, value, hide) {
-    return Markup.switchToChatButton(text, value, hide)
+  switchToChatButton(text, value, hide) {
+    return Markup.switchToChatButton(text, value, hide);
   }
 
-  switchToCurrentChatButton (text, value, hide) {
-    return Markup.switchToCurrentChatButton(text, value, hide)
+  switchToCurrentChatButton(text, value, hide) {
+    return Markup.switchToCurrentChatButton(text, value, hide);
   }
 
-  gameButton (text, hide) {
-    return Markup.gameButton(text, hide)
+  gameButton(text, hide) {
+    return Markup.gameButton(text, hide);
   }
 
-  payButton (text, hide) {
-    return Markup.payButton(text, hide)
+  payButton(text, hide) {
+    return Markup.payButton(text, hide);
   }
 
-  loginButton (text, url, opts, hide) {
-    return Markup.loginButton(text, url, opts, hide)
+  loginButton(text, url, opts, hide) {
+    return Markup.loginButton(text, url, opts, hide);
   }
 
-  static removeKeyboard (value) {
-    return new Markup().removeKeyboard(value)
+  static removeKeyboard(value) {
+    return new Markup().removeKeyboard(value);
   }
 
-  static forceReply (value) {
-    return new Markup().forceReply(value)
+  static forceReply(value) {
+    return new Markup().forceReply(value);
   }
 
-  static keyboard (buttons, options) {
-    return new Markup().keyboard(buttons, options)
+  static keyboard(buttons, options) {
+    return new Markup().keyboard(buttons, options);
   }
 
-  static inlineKeyboard (buttons, options) {
-    return new Markup().inlineKeyboard(buttons, options)
+  static inlineKeyboard(buttons, options) {
+    return new Markup().inlineKeyboard(buttons, options);
   }
 
-  static resize (value = true) {
-    return new Markup().resize(value)
+  static resize(value = true) {
+    return new Markup().resize(value);
   }
 
-  static selective (value = true) {
-    return new Markup().selective(value)
+  static selective(value = true) {
+    return new Markup().selective(value);
   }
 
-  static oneTime (value = true) {
-    return new Markup().oneTime(value)
+  static oneTime(value = true) {
+    return new Markup().oneTime(value);
   }
 
-  static button (text, hide = false) {
-    return { text: text, hide: hide }
+  static button(text, hide = false) {
+    return { text: text, hide: hide };
   }
 
-  static contactRequestButton (text, hide = false) {
-    return { text: text, request_contact: true, hide: hide }
+  static contactRequestButton(text, hide = false) {
+    return { text: text, request_contact: true, hide: hide };
   }
 
-  static locationRequestButton (text, hide = false) {
-    return { text: text, request_location: true, hide: hide }
+  static locationRequestButton(text, hide = false) {
+    return { text: text, request_location: true, hide: hide };
   }
 
-  static pollRequestButton (text, type, hide = false) {
-    return { text: text, request_poll: { type }, hide: hide }
+  static pollRequestButton(text, type, hide = false) {
+    return { text: text, request_poll: { type }, hide: hide };
   }
 
-  static urlButton (text, url, hide = false) {
-    return { text: text, url: url, hide: hide }
+  static urlButton(text, url, hide = false) {
+    return { text: text, url: url, hide: hide };
   }
 
-  static callbackButton (text, data, hide = false) {
-    return { text: text, callback_data: data, hide: hide }
+  static callbackButton(text, data, hide = false) {
+    return { text: text, callback_data: data, hide: hide };
   }
 
-  static switchToChatButton (text, value, hide = false) {
-    return { text: text, switch_inline_query: value, hide: hide }
+  static switchToChatButton(text, value, hide = false) {
+    return { text: text, switch_inline_query: value, hide: hide };
   }
 
-  static switchToCurrentChatButton (text, value, hide = false) {
-    return { text: text, switch_inline_query_current_chat: value, hide: hide }
+  static switchToCurrentChatButton(text, value, hide = false) {
+    return { text: text, switch_inline_query_current_chat: value, hide: hide };
   }
 
-  static gameButton (text, hide = false) {
-    return { text: text, callback_game: {}, hide: hide }
+  static gameButton(text, hide = false) {
+    return { text: text, callback_game: {}, hide: hide };
   }
 
-  static payButton (text, hide = false) {
-    return { text: text, pay: true, hide: hide }
+  static payButton(text, hide = false) {
+    return { text: text, pay: true, hide: hide };
   }
 
-  static loginButton (text, url, opts = {}, hide = false) {
+  static loginButton(text, url, opts = {}, hide = false) {
     return {
       text: text,
       login_url: { ...opts, url: url },
-      hide: hide
-    }
+      hide: hide,
+    };
   }
 
-  static formatHTML (text = '', entities = []) {
-    const chars = [...text]
-    const available = [...entities]
-    const opened = []
-    const result = []
+  static formatHTML(text = '', entities = []) {
+    const chars = [...text];
+    const available = [...entities];
+    const opened = [];
+    const result = [];
     for (let offset = 0; offset < chars.length; offset++) {
       while (true) {
-        const index = available.findIndex((entity) => entity.offset === offset)
+        const index = available.findIndex(entity => entity.offset === offset);
         if (index === -1) {
-          break
+          break;
         }
-        const entity = available[index]
+        const entity = available[index];
         switch (entity.type) {
           case 'bold':
-            result.push('<b>')
-            break
+            result.push('<b>');
+            break;
           case 'italic':
-            result.push('<i>')
-            break
+            result.push('<i>');
+            break;
           case 'code':
-            result.push('<code>')
-            break
+            result.push('<code>');
+            break;
           case 'pre':
             if (entity.language) {
               result.push(`<pre><code class="language-${entity.language}">`)
@@ -193,40 +196,42 @@ class Markup {
             }
             break
           case 'strikethrough':
-            result.push('<s>')
-            break
+            result.push('<s>');
+            break;
           case 'underline':
-            result.push('<u>')
-            break
+            result.push('<u>');
+            break;
           case 'text_mention':
-            result.push(`<a href="tg://user?id=${entity.user.id}">`)
-            break
+            result.push(`<a href="tg://user?id=${entity.user.id}">`);
+            break;
           case 'text_link':
-            result.push(`<a href="${entity.url}">`)
-            break
+            result.push(`<a href="${entity.url}">`);
+            break;
         }
-        opened.unshift(entity)
-        available.splice(index, 1)
+        opened.unshift(entity);
+        available.splice(index, 1);
       }
 
-      result.push(chars[offset])
+      result.push(chars[offset]);
 
       while (true) {
-        const index = opened.findIndex((entity) => entity.offset + entity.length - 1 === offset)
+        const index = opened.findIndex(
+          entity => entity.offset + entity.length - 1 === offset,
+        );
         if (index === -1) {
-          break
+          break;
         }
-        const entity = opened[index]
+        const entity = opened[index];
         switch (entity.type) {
           case 'bold':
-            result.push('</b>')
-            break
+            result.push('</b>');
+            break;
           case 'italic':
-            result.push('</i>')
-            break
+            result.push('</i>');
+            break;
           case 'code':
-            result.push('</code>')
-            break
+            result.push('</code>');
+            break;
           case 'pre':
             if (entity.language) {
               result.push('</code></pre>')
@@ -235,48 +240,48 @@ class Markup {
             }
             break
           case 'strikethrough':
-            result.push('</s>')
-            break
+            result.push('</s>');
+            break;
           case 'underline':
-            result.push('</u>')
-            break
+            result.push('</u>');
+            break;
           case 'text_mention':
           case 'text_link':
-            result.push('</a>')
-            break
+            result.push('</a>');
+            break;
         }
-        opened.splice(index, 1)
+        opened.splice(index, 1);
       }
     }
-    return result.join('')
+    return result.join('');
   }
 }
 
-function buildKeyboard (buttons, options) {
-  const result = []
+function buildKeyboard(buttons, options) {
+  const result = [];
   if (!Array.isArray(buttons)) {
-    return result
+    return result;
   }
   if (buttons.find(Array.isArray)) {
-    return buttons.map(row => row.filter((button) => !button.hide))
+    return buttons.map(row => row.filter(button => !button.hide));
   }
   const wrapFn = options.wrap
     ? options.wrap
-    : (btn, index, currentRow) => currentRow.length >= options.columns
-  let currentRow = []
-  let index = 0
-  for (const btn of buttons.filter((button) => !button.hide)) {
+    : (btn, index, currentRow) => currentRow.length >= options.columns;
+  let currentRow = [];
+  let index = 0;
+  for (const btn of buttons.filter(button => !button.hide)) {
     if (wrapFn(btn, index, currentRow) && currentRow.length > 0) {
-      result.push(currentRow)
-      currentRow = []
+      result.push(currentRow);
+      currentRow = [];
     }
-    currentRow.push(btn)
-    index++
+    currentRow.push(btn);
+    index++;
   }
   if (currentRow.length > 0) {
-    result.push(currentRow)
+    result.push(currentRow);
   }
-  return result
+  return result;
 }
 
-module.exports = Markup
+module.exports = Markup;

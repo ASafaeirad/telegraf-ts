@@ -1,85 +1,85 @@
-const Markup = require('./markup')
+const Markup = require('./markup');
 
 class Extra {
-  constructor (opts) {
-    this.load(opts)
+  constructor(opts) {
+    this.load(opts);
   }
 
-  load (opts = {}) {
-    return Object.assign(this, opts)
+  load(opts = {}) {
+    return Object.assign(this, opts);
   }
 
-  inReplyTo (messageId) {
-    this.reply_to_message_id = messageId
-    return this
+  inReplyTo(messageId) {
+    this.reply_to_message_id = messageId;
+    return this;
   }
 
-  notifications (value = true) {
-    this.disable_notification = !value
-    return this
+  notifications(value = true) {
+    this.disable_notification = !value;
+    return this;
   }
 
-  webPreview (value = true) {
-    this.disable_web_page_preview = !value
-    return this
+  webPreview(value = true) {
+    this.disable_web_page_preview = !value;
+    return this;
   }
 
-  markup (markup) {
+  markup(markup) {
     if (typeof markup === 'function') {
-      markup = markup(new Markup())
+      markup = markup(new Markup());
     }
-    this.reply_markup = { ...markup }
-    return this
+    this.reply_markup = { ...markup };
+    return this;
   }
 
-  HTML (value = true) {
-    this.parse_mode = value ? 'HTML' : undefined
-    return this
+  HTML(value = true) {
+    this.parse_mode = value ? 'HTML' : undefined;
+    return this;
   }
 
-  markdown (value = true) {
-    this.parse_mode = value ? 'Markdown' : undefined
-    return this
+  markdown(value = true) {
+    this.parse_mode = value ? 'Markdown' : undefined;
+    return this;
   }
 
-  caption (caption = '') {
-    this.caption = caption
-    return this
+  caption(caption = '') {
+    this.caption = caption;
+    return this;
   }
 
-  static inReplyTo (messageId) {
-    return new Extra().inReplyTo(messageId)
+  static inReplyTo(messageId) {
+    return new Extra().inReplyTo(messageId);
   }
 
-  static notifications (value) {
-    return new Extra().notifications(value)
+  static notifications(value) {
+    return new Extra().notifications(value);
   }
 
-  static webPreview (value) {
-    return new Extra().webPreview(value)
+  static webPreview(value) {
+    return new Extra().webPreview(value);
   }
 
-  static load (opts) {
-    return new Extra(opts)
+  static load(opts) {
+    return new Extra(opts);
   }
 
-  static markup (markup) {
-    return new Extra().markup(markup)
+  static markup(markup) {
+    return new Extra().markup(markup);
   }
 
-  static HTML (value) {
-    return new Extra().HTML(value)
+  static HTML(value) {
+    return new Extra().HTML(value);
   }
 
-  static markdown (value) {
-    return new Extra().markdown(value)
+  static markdown(value) {
+    return new Extra().markdown(value);
   }
 
-  static caption (caption) {
-    return new Extra().caption(caption)
+  static caption(caption) {
+    return new Extra().caption(caption);
   }
 }
 
-Extra.Markup = Markup
+Extra.Markup = Markup;
 
-module.exports = Extra
+module.exports = Extra;

@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "src": [
+    "*.js",
+    "typeings/*.ts"
+  ]
+}

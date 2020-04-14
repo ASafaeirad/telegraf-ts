@@ -2,32 +2,39 @@ module.exports = function (opts) {
   const options = {
     property: 'session',
     store: new Map(),
-    getSessionKey: (ctx) => ctx.from && ctx.chat && `${ctx.from.id}:${ctx.chat.id}`,
-    ...opts
-  }
+    getSessionKey: ctx =>
+      ctx.from && ctx.chat && `${ctx.from.id}:${ctx.chat.id}`,
+    ...opts,
+  };
 
-  const ttlMs = options.ttl && options.ttl * 1000
+  const ttlMs = options.ttl && options.ttl * 1000;
 
   return (ctx, next) => {
-    const key = options.getSessionKey(ctx)
+    const key = options.getSessionKey(ctx);
     if (!key) {
-      return next(ctx)
+      return next(ctx);
     }
     const now = Date.now()
     return Promise.resolve(options.store.get(key))
-      .then((state) => state || { session: {} })
+      .then(state => state || { session: {} })
       .then(({ session, expires }) => {
         if (expires && expires < now) {
-          session = {}
+          session = {};
         }
         Object.defineProperty(ctx, options.property, {
-          get: function () { return session },
-          set: function (newValue) { session = { ...newValue } }
-        })
-        return next(ctx).then(() => options.store.set(key, {
-          session,
-          expires: ttlMs ? now + ttlMs : null
-        }))
-      })
-  }
-}
+          get: function () {
+            return session;
+          },
+          set: function (newValue) {
+            session = { ...newValue };
+          },
+        });
+        return next(ctx).then(() =>
+          options.store.set(key, {
+            session,
+            expires: ttlMs ? now + ttlMs : null,
+          }),
+        );
+      });
+  };
+};

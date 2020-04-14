@@ -1,43 +1,43 @@
-const { compose, lazy, passThru } = require('./composer')
+const { compose, lazy, passThru } = require('./composer');
 
 class Router {
-  constructor (routeFn, handlers = new Map()) {
+  constructor(routeFn, handlers = new Map()) {
     if (!routeFn) {
-      throw new Error('Missing routing function')
+      throw new Error('Missing routing function');
     }
-    this.routeFn = routeFn
-    this.handlers = handlers
-    this.otherwiseHandler = passThru()
+    this.routeFn = routeFn;
+    this.handlers = handlers;
+    this.otherwiseHandler = passThru();
   }
 
-  on (route, ...fns) {
+  on(route, ...fns) {
     if (fns.length === 0) {
-      throw new TypeError('At least one handler must be provided')
+      throw new TypeError('At least one handler must be provided');
     }
-    this.handlers.set(route, compose(fns))
-    return this
+    this.handlers.set(route, compose(fns));
+    return this;
   }
 
-  otherwise (...fns) {
+  otherwise(...fns) {
     if (fns.length === 0) {
-      throw new TypeError('At least one otherwise handler must be provided')
+      throw new TypeError('At least one otherwise handler must be provided');
     }
-    this.otherwiseHandler = compose(fns)
-    return this
+    this.otherwiseHandler = compose(fns);
+    return this;
   }
 
-  middleware () {
-    return lazy((ctx) => {
-      return Promise.resolve(this.routeFn(ctx)).then((result) => {
+  middleware() {
+    return lazy(ctx => {
+      return Promise.resolve(this.routeFn(ctx)).then(result => {
         if (!result || !result.route || !this.handlers.has(result.route)) {
-          return this.otherwiseHandler
+          return this.otherwiseHandler;
         }
-        Object.assign(ctx, result.context)
-        Object.assign(ctx.state, result.state)
-        return this.handlers.get(result.route)
-      })
-    })
+        Object.assign(ctx, result.context);
+        Object.assign(ctx.state, result.state);
+        return this.handlers.get(result.route);
+      });
+    });
   }
 }
 
-module.exports = Router
+module.exports = Router;
