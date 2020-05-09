@@ -1,6 +1,6 @@
 {
   "name": "telegraf-ts",
-  "version": "3.88.1",
+  "version": "3.88.2",
   "description": "Well-Typed fork of telegraf",
   "license": "MIT",
   "author": "frontendmonster <frontendmonster@gamil.com>",
