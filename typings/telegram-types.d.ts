@@ -11,7 +11,7 @@ export type MemberStatus =
   | 'left'
   | 'kicked';
 
-export type AdminPermissions = keyof ChatPermissions & ExtraPromoteChatMember;
+export type AdminPermissions = keyof ChatPermissions | keyof ExtraPromoteChatMember;
 export type UserPermissions = keyof UserPermissionsOption;
 
 export interface UserPermissionsOption {
