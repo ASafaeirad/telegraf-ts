@@ -23,6 +23,21 @@ export interface TelegrafOptions {
    * Bot username
    */
   username?: string
+
+  /**
+   * Context Type
+   */
+  contextType?: typeof TelegrafContext
+
+  /**
+   * retryAfter
+   */
+  retryAfter?: number
+
+  /**
+   * handlerTimeout
+   */
+  handlerTimeout?: number
 }
 
 export interface LaunchPollingOptions {

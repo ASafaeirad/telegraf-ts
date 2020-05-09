@@ -1,51 +1,15 @@
-/** @format */
-
-import * as https from 'https'
-import * as http from 'http'
-import * as tt from './telegram-types.d'
-
-export interface TelegramOptions {
-  /**
-   * https.Agent or http.Agent instance, allows custom proxy, certificate, keep alive, etc.
-   */
-  agent?: https.Agent | http.Agent
-
-  /**
-   * Reply via webhook
-   */
-  webhookReply?: boolean
-
-  /**
-   * Path to API. default: https://api.telegram.org
-   */
-  apiRoot?: string
-}
-
-declare class ApiClient {
-  protected constructor(token: string, options: object, webhookResponse: any)
-
-  callApi(method: string, data: object): Promise<unknown>
-}
-
-export declare class Telegram extends ApiClient {
-  /**
-   * Initialize new Telegram app.
-   * @param token Bot token
-   * @param options Telegram options
-   */
-  constructor(token: string, options?: TelegramOptions)
-
+export interface Telegram {
   /**
    * Use this property to control reply via webhook feature.
    */
-  webhookReply: boolean
+  webhookReply: boolean;
 
   /**
    * Use this method to send answers to game query.
    * @param callbackQueryId Query id
    * @param url Notification text
    */
-  answerGameQuery(callbackQueryId: string, url: string): Promise<boolean>
+  answerGameQuery: (callbackQueryId: string, url: string) => Promise<boolean>;
 
   /**
    * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified,
@@ -57,12 +21,12 @@ export declare class Telegram extends ApiClient {
    * @param shippingOptions Required if ok is True. A JSON-serialized array of available shipping options.
    * @param errorMessage Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
    */
-  answerShippingQuery(
+  answerShippingQuery: (
     shippingQueryId: string,
     ok: boolean,
     shippingOptions: tt.ShippingOption[],
-    errorMessage: string
-  ): Promise<boolean>
+    errorMessage: string,
+  ) => Promise<boolean>;
 
   /**
    * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an Update with the field pre_checkout_query.
@@ -72,11 +36,11 @@ export declare class Telegram extends ApiClient {
    * @param ok  Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. Use False if there are any problems.
    * @param errorMessage Required if ok is False. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user.
    */
-  answerPreCheckoutQuery(
+  answerPreCheckoutQuery: (
     preCheckoutQueryId: string,
     ok: boolean,
-    errorMessage?: string
-  ): Promise<boolean>
+    errorMessage?: string,
+  ) => Promise<boolean>;
 
   /**
    * Use this method to send answers to an inline query. On success, True is returned.
@@ -85,11 +49,11 @@ export declare class Telegram extends ApiClient {
    * @param results Array of results for the inline query
    * @param extra Extra optional parameters
    */
-  answerInlineQuery(
+  answerInlineQuery: (
     inlineQueryId: string,
     results: tt.InlineQueryResult[],
-    extra?: tt.ExtraAnswerInlineQuery
-  ): Promise<boolean>
+    extra?: tt.ExtraAnswerInlineQuery,
+  ) => Promise<boolean>;
 
   /**
    * Use this method to forward exists message.
@@ -99,12 +63,12 @@ export declare class Telegram extends ApiClient {
    * @param extra Pass `{ disable_notification: true }`, if it is not necessary to send a notification for forwarded message
    * @returns On success, the sent Message is returned.
    */
-  forwardMessage(
+  forwardMessage: (
     chatId: number | string,
     fromChatId: number | string,
     messageId: string | number,
-    extra?: { disable_notification?: boolean }
-  ): Promise<tt.Message>
+    extra?: { disable_notification?: boolean },
+  ) => Promise<tt.Message>;
 
   /**
    * Use this method to edit text and game messages sent by the bot or via the bot (for inline bots).
@@ -115,13 +79,13 @@ export declare class Telegram extends ApiClient {
    * @param text New text of the message
    * @param extra Extra params
    */
-  editMessageText(
+  editMessageText: (
     chatId: number | string | void,
     messageId: number | void,
     inlineMessageId: string | void,
     text: string,
-    extra?: tt.ExtraEditMessage
-  ): Promise<tt.Message | boolean>
+    extra?: tt.ExtraEditMessage,
+  ) => Promise<tt.Message | boolean>;
 
   /**
    * Use this method to edit captions of messages sent by the bot or via the bot (for inline bots).
@@ -132,13 +96,13 @@ export declare class Telegram extends ApiClient {
    * @param caption New caption of the message
    * @param markup A JSON-serialized object for an inline keyboard.
    */
-  editMessageCaption(
+  editMessageCaption: (
     chatId?: number | string,
     messageId?: number,
     inlineMessageId?: string,
     caption?: string,
-    markup?: string
-  ): Promise<tt.Message | boolean>
+    markup?: string,
+  ) => Promise<tt.Message | boolean>;
 
   /**
    * Use this method to edit only the reply markup of messages sent by the bot or via the bot (for inline bots).
@@ -148,12 +112,12 @@ export declare class Telegram extends ApiClient {
    * @param inlineMessageId Required if chatId and messageId are not specified. Identifier of the inline message
    * @param markup A JSON-serialized object for an inline keyboard.
    */
-  editMessageReplyMarkup(
+  editMessageReplyMarkup: (
     chatId?: number | string,
     messageId?: number,
     inlineMessageId?: string,
-    markup?: string
-  ): Promise<tt.Message | boolean>
+    markup?: string,
+  ) => Promise<tt.Message | boolean>;
 
   /**
    * Use this method to delete a message, including service messages, with the following limitations:
@@ -166,14 +130,14 @@ export declare class Telegram extends ApiClient {
    * @param messageId Identifier of the message to delete
    * @returns Returns True on success.
    */
-  deleteMessage(chatId: number | string, messageId: number): Promise<boolean>
+  deleteMessage: (chatId: number | string, messageId: number) => Promise<boolean>;
 
   /**
    * Use this method to get a sticker set
    * @param setName Name of the sticker set
    * @returns On success, a StickerSet object is returned.
    */
-  getStickerSet(setName: string): Promise<tt.StickerSet>
+  getStickerSet: (setName: string) => Promise<tt.StickerSet>;
 
   /**
    * Use this method to upload a .png file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times)
@@ -182,10 +146,10 @@ export declare class Telegram extends ApiClient {
    * @param stickerFile Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px.
    * @returns Returns the uploaded File on success
    */
-  uploadStickerFile(
+  uploadStickerFile: (
     ownerId: number,
-    stickerFile: tt.InputFile
-  ): Promise<tt.File>
+    stickerFile: tt.InputFile,
+  ) => Promise<tt.File>;
 
   /**
    * Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set
@@ -195,12 +159,12 @@ export declare class Telegram extends ApiClient {
    * @param stickerData Sticker object
    * @returns Returns True on success.
    */
-  createNewStickerSet(
+  createNewStickerSet: (
     ownerId: number,
     name: string,
     title: string,
-    stickerData: tt.StickerData
-  ): Promise<boolean>
+    stickerData: tt.StickerData,
+  ) => Promise<boolean>;
 
   /**
    * Use this method to add a new sticker to a set created by the bot
@@ -210,12 +174,12 @@ export declare class Telegram extends ApiClient {
    * @param isMasks https://github.com/telegraf/telegraf/blob/87882c42f6c2496576fdb57ca622690205c3e35e/lib/telegram.js#L304
    * @returns Returns True on success.
    */
-  addStickerToSet(
+  addStickerToSet: (
     ownerId: number,
     name: string,
     stickerData: tt.StickerData,
-    isMasks: boolean
-  ): Promise<boolean>
+    isMasks: boolean,
+  ) => Promise<boolean>;
 
   /**
    * Use this method to move a sticker in a set created by the bot to a specific position
@@ -223,14 +187,14 @@ export declare class Telegram extends ApiClient {
    * @param position New sticker position in the set, zero-based
    * @returns Returns True on success.
    */
-  setStickerPositionInSet(sticker: string, position: number): Promise<boolean>
+  setStickerPositionInSet: (sticker: string, position: number) => Promise<boolean>;
 
   /**
    * Use this method to delete a sticker from a set created by the bot.
    * @param sticker File identifier of the sticker
    * @returns Returns True on success
    */
-  deleteStickerFromSet(sticker: string): Promise<boolean>
+  deleteStickerFromSet: (sticker: string) => Promise<boolean>;
 
   /**
    * Use this method to send copy of exists message.
@@ -239,45 +203,45 @@ export declare class Telegram extends ApiClient {
    * @param extra Specified params for message
    * @returns On success, the sent Message is returned.
    */
-  sendCopy(
+  sendCopy: (
     chatId: number | string,
     message?: tt.Message,
-    extra?: object
-  ): Promise<tt.Message>
+    extra?: object,
+  ) => Promise<tt.Message>;
 
   /**
    * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
    * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @returns True on success
    */
-  deleteChatPhoto(chatId: number | string): Promise<boolean>
+  deleteChatPhoto: (chatId: number | string) => Promise<boolean>;
 
   /**
    * Use this method to export an invite link to a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
    * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @returns exported invite link as String on success.
    */
-  exportChatInviteLink(chatId: number | string): Promise<string>
+  exportChatInviteLink: (chatId: number | string) => Promise<string>;
 
   /**
    * Use this method to get basic information about the bot
    * @returns a User object on success.
    */
-  getMe(): Promise<tt.User>
+  getMe: () => Promise<tt.User>;
 
   /**
    * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.)
    * @param chatId Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @returns a Chat object on success.
    */
-  getChat(chatId: number | string): Promise<tt.Chat>
+  getChat: (chatId: number | string) => Promise<tt.Chat>;
 
   /**
    * Use this method to get a list of administrators in a chat.
    * @param chatId Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @returns On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
    */
-  getChatAdministrators(chatId: number | string): Promise<tt.ChatMember[]>
+  getChatAdministrators: (chatId: number | string) => Promise<tt.ChatMember[]>;
 
   /**
    * Use this method to get information about a member of a chat.
@@ -285,14 +249,17 @@ export declare class Telegram extends ApiClient {
    * @param userId Unique identifier of the target user
    * @returns a ChatMember object on success
    */
-  getChatMember(chatId: string | number, userId: number): Promise<tt.ChatMember>
+  getChatMember: (
+    chatId: string | number,
+    userId: number,
+  ) => Promise<tt.ChatMember>;
 
   /**
    * Use this method to get the number of members in a chat
    * @param chatId Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @returns Number on success
    */
-  getChatMembersCount(chatId: string | number): Promise<number>
+  getChatMembersCount: (chatId: string | number) => Promise<number>;
 
   /**
    * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift restrictions from a user. Returns True on success.
@@ -301,18 +268,18 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params for restrict chat member
    * @returns True on success
    */
-  restrictChatMember(
+  restrictChatMember: (
     chatId: string | number,
     userId: number,
-    extra?: tt.ExtraRestrictChatMember
-  ): Promise<boolean>
+    extra?: tt.RestrictOptions,
+  ) => Promise<boolean>;
 
   /**
    * Use this method for your bot to leave a group, supergroup or channel
    * @param chatId Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @returns True on success
    */
-  leaveChat(chatId: number | string): Promise<boolean>
+  leaveChat: (chatId: number | string) => Promise<boolean>;
 
   /**
    * Use this method to pin a message in a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights
@@ -321,18 +288,18 @@ export declare class Telegram extends ApiClient {
    * @param extra Pass `{ disable_notification: true }`, if it is not necessary to send a notification to all group members about the new pinned message
    * @returns True on success
    */
-  pinChatMessage(
+  pinChatMessage: (
     chatId: number | string,
     messageId: number,
-    extra?: { disable_notification?: boolean }
-  ): Promise<boolean>
+    extra?: { disable_notification?: boolean },
+  ) => Promise<boolean>;
 
   /**
    * Use this method to unpin a message in a group, a supergroup, or a channel.
    * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @returns True on success
    */
-  unpinChatMessage(chatId: number | string): Promise<boolean>
+  unpinChatMessage: (chatId: number | string) => Promise<boolean>;
 
   /**
    * Use this method to send text messages
@@ -341,11 +308,11 @@ export declare class Telegram extends ApiClient {
    * @param extra SendMessage additional params
    * @returns sent Message if Success
    */
-  sendMessage(
+  sendMessage: (
     chatId: number | string,
     text: string,
-    extra?: tt.ExtraEditMessage
-  ): Promise<tt.Message>
+    extra?: tt.ExtraEditMessage,
+  ) => Promise<tt.Message>;
 
   /**
    * Use this method to send audio files, if you want Telegram clients to display them in the music player.
@@ -356,11 +323,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Audio extra parameters
    * @returns On success, the sent Message is returned.
    */
-  sendAudio(
+  sendAudio: (
     chatId: number | string,
     audio: tt.InputFile,
-    extra?: tt.ExtraAudio
-  ): Promise<tt.MessageAudio>
+    extra?: tt.ExtraAudio,
+  ) => Promise<tt.MessageAudio>;
 
   /**
    * Use this method when you need to tell the user that something is happening on the bot's side.
@@ -377,10 +344,10 @@ export declare class Telegram extends ApiClient {
    * @param action Type of action to broadcast.
    * @returns True on success
    */
-  sendChatAction(
+  sendChatAction: (
     chatId: number | string,
-    action: tt.ChatAction
-  ): Promise<boolean>
+    action: tt.ChatAction,
+  ) => Promise<boolean>;
 
   /**
    * Use this method to send general files. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
@@ -389,11 +356,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params for send document
    * @returns a Message on success
    */
-  sendDocument(
+  sendDocument: (
     chatId: number | string,
     document: tt.InputFile,
-    extra?: tt.ExtraDocument
-  ): Promise<tt.MessageDocument>
+    extra?: tt.ExtraDocument,
+  ) => Promise<tt.MessageDocument>;
 
   /**
    * Use this method to send a game
@@ -402,11 +369,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params for send game
    * @returns a Message on success
    */
-  sendGame(
+  sendGame: (
     chatId: number | string,
     gameShortName: string,
-    extra?: tt.ExtraGame
-  ): Promise<tt.MessageGame>
+    extra?: tt.ExtraGame,
+  ) => Promise<tt.MessageGame>;
 
   /**
    * Use this method to send invoices
@@ -415,11 +382,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params for send invoice
    * @returns a Message on success
    */
-  sendInvoice(
+  sendInvoice: (
     chatId: number,
     invoice: tt.NewInvoiceParameters,
-    extra?: tt.ExtraInvoice
-  ): Promise<tt.MessageInvoice>
+    extra?: tt.ExtraInvoice,
+  ) => Promise<tt.MessageInvoice>;
 
   /**
    * Use this method to send point on the map
@@ -429,12 +396,12 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params for send location
    * @returns a Message on success
    */
-  sendLocation(
+  sendLocation: (
     chatId: number | string,
     latitude: number,
     longitude: number,
-    extra?: tt.ExtraLocation
-  ): Promise<tt.MessageLocation>
+    extra?: tt.ExtraLocation,
+  ) => Promise<tt.MessageLocation>;
 
   /**
    * Use this method to send photos
@@ -443,11 +410,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params to send photo
    * @returns a Message on success
    */
-  sendPhoto(
+  sendPhoto: (
     chatId: number | string,
     photo: tt.InputFile,
-    extra?: tt.ExtraPhoto
-  ): Promise<tt.MessagePhoto>
+    extra?: tt.ExtraPhoto,
+  ) => Promise<tt.MessagePhoto>;
 
   /**
    * Use this method to send a group of photos or videos as an album
@@ -456,54 +423,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params to send media group
    * @returns On success, an array of the sent Messages is returned
    */
-  sendMediaGroup(
+  sendMediaGroup: (
     chatId: number | string,
     media: tt.MessageMedia[],
-    extra?: tt.ExtraMediaGroup
-  ): Promise<tt.Message[]>
-
-  /**
-   * Use this method to send a native poll.
-   * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param question Poll question, 1-255 characters
-   * @param options A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
-   * @param extra Additional params to send poll
-   * @returns On success, the sent Message is returned.
-   */
-  sendPoll(
-    chatId: number | string,
-    question: string,
-    options: string[],
-    extra: tt.ExtraPoll
-  ): Promise<tt.MessagePoll>
-
-  /**
-   * Use this method to send a native quiz.
-   * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param question Poll question, 1-255 characters
-   * @param options A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
-   * @param extra Additional params to send quiz
-   * @returns On success, the sent Message is returned.
-   */
-  sendQuiz(
-    chatId: number | string,
-    question: string,
-    options: string[],
-    extra: tt.ExtraPoll
-  ): Promise<tt.MessagePoll>
-
-  /**
-   * Use this method to send a native quiz.
-   * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param messageId Identifier of the original message with the poll
-   * @param extra Additional params to stop poll
-   * @returns On success, the stopped Poll with the final results is returned.
-   */
-  stopPoll(
-    chatId: number | string,
-    messageId: number,
-    extra: tt.ExtraStopPoll
-  ): Promise<tt.Poll>
+    extra?: tt.ExtraMediaGroup,
+  ) => Promise<tt.Message[]>;
 
   /**
    * Use this method to send .gif animations
@@ -512,11 +436,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params to send GIF
    * @returns a Message on success
    */
-  sendAnimation(
+  sendAnimation: (
     chatId: number | string,
     animation: tt.InputFile,
-    extra?: tt.ExtraAnimation
-  ): Promise<tt.MessageAnimation>
+    extra?: tt.ExtraAnimation,
+  ) => Promise<tt.MessageAnimation>;
 
   /**
    * Use this method to send .webp stickers
@@ -525,11 +449,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params to send sticker
    * @returns a Message on success
    */
-  sendSticker(
+  sendSticker: (
     chatId: number | string,
     sticker: tt.InputFile,
-    extra?: tt.ExtraSticker
-  ): Promise<tt.MessageSticker>
+    extra?: tt.ExtraSticker,
+  ) => Promise<tt.MessageSticker>;
 
   /**
    * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document)
@@ -539,24 +463,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params to send video
    * @returns a Message on success
    */
-  sendVideo(
+  sendVideo: (
     chatId: number | string,
     video: tt.InputFile,
-    extra?: tt.ExtraVideo
-  ): Promise<tt.MessageVideo>
-
-  /**
-   * Use this method to send video messages
-   * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param videoNote video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. Sending video notes by a URL is currently unsupported
-   * @param extra Additional params to send video note
-   * @returns a Message on success
-   */
-  sendVideoNote(
-    chatId: number | string,
-    videoNote: tt.InputFileVideoNote,
-    extra?: tt.ExtraVideoNote
-  ): Promise<tt.MessageVideoNote>
+    extra?: tt.ExtraVideo,
+  ) => Promise<tt.MessageVideo>;
 
   /**
    * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
@@ -565,22 +476,11 @@ export declare class Telegram extends ApiClient {
    * @param extra Additional params to send voice
    * @returns a Message on success
    */
-  sendVoice(
+  sendVoice: (
     chatId: number | string,
     voice: tt.InputFile,
-    extra?: tt.ExtraVoice
-  ): Promise<tt.MessageVoice>
-
-  /**
-   * Use this method to send a dice, which will have a random value from 1 to 6. On success, the sent Message is returned. (Yes, we're aware of the “proper” singular of die. But it's awkward, and we decided to help it change. One dice at a time!)
-   * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param extra Additional params to send dice
-   * @returns a Message on success
-   */
-  sendDice(
-    chatId: number | string,
-    extra?: tt.ExtraDice
-  ): Promise<tt.MessageDice>
+    extra?: tt.ExtraVoice,
+  ) => Promise<tt.MessageVoice>;
 
   /**
    * Use this method to specify a url and receive incoming updates via an outgoing webhook
@@ -590,38 +490,38 @@ export declare class Telegram extends ApiClient {
    * @param allowedUpdates List the types of updates you want your bot to receive
    * @returns True on success
    */
-  setWebhook(
+  setWebhook: (
     url: string,
     cert?: tt.InputFile,
     maxConnections?: number,
-    allowedUpdates?: string[]
-  ): Promise<boolean>
+    allowedUpdates?: string[],
+  ) => Promise<boolean>;
 
   /**
    * Use this method to delete webhook
    * @returns True on success
    */
-  deleteWebhook(): Promise<boolean>
+  deleteWebhook: () => Promise<boolean>;
 
   /**
    * Use this method to get information about set webhook
    * @returns a WebhookInfo on success
    */
-  getWebhookInfo(): Promise<tt.WebhookInfo>
+  getWebhookInfo: () => Promise<tt.WebhookInfo>;
 
   /**
    * Use this method to get basic info about a file and prepare it for downloading
    * @param fileId Id of file to get link to
    * @returns a File object on success
    */
-  getFile(fileId: string): Promise<tt.File>
+  getFile: (fileId: string) => Promise<tt.File>;
 
   /**
    * Use this method to get link to a file by file id
    * @param fileId Id of file to get link to
    * @returns a String with an url to the file
    */
-  getFileLink(fileId: string): Promise<string>
+  getFileLink: (fileId: string) => Promise<string>;
 
   /**
    * Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights
@@ -630,37 +530,38 @@ export declare class Telegram extends ApiClient {
    * @param untilDate Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever
    * @returns True on success
    */
-  kickChatMember(
+  kickChatMember: (
     chatId: number | string,
     userId: number,
-    untilDate?: number
-  ): Promise<boolean>
+    untilDate?: number,
+  ) => Promise<boolean>;
 
   /**
-   * Use this method to unban a user from a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights
-   * @param chatId Unique identifier for the target group or username of the target supergroup or channel (in the format @username)
+   *  Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success.
+   * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param userId Unique identifier of the target user
+   * @param permissions Permissions
+   * @returns True on success
+   */
+  promoteChatMember: (
+    chatId: number | string,
+    userId: number,
+    permissions?: tt.AdminPermissionsOption,
+  ) => Promise<boolean>;
+
+  /**
+   * Use this method to ban a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights
+   * @param chatId Unique identifier for the target group or username of the target supergroup or channel (in the format `@channelusername`)
    * @param userId Unique identifier of the target user
    * @returns True on success
    */
-  unbanChatMember(chatId: number | string, userId: number): Promise<boolean>
-
-  /**
-   * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user.
-   * @param chatId Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-   * @param userId Unique identifier of the target user
-   * @returns True on success
-   */
-  promoteChatMember(
-    chatId: number | string,
-    userId: number,
-    extra: tt.ExtraPromoteChatMember
-  ): Promise<boolean>
+  unbanChatMember: (chatId: number | string, userId: number) => Promise<boolean>;
 
   /**
    * Use this method to get updates from Telegram server. Bot should be in `polling` mode
    * @returns Array of updates
    */
-  getUpdates(): Promise<any[]>
+  getUpdates: () => Promise<any[]>;
 
   /**
    * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights
@@ -668,18 +569,138 @@ export declare class Telegram extends ApiClient {
    * @param title New chat title, 1-255 characters
    * @returns True on success
    */
-  setChatTitle(chatId: number | string, title: string): Promise<boolean>
+  setChatTitle: (chatId: number | string, title: string) => Promise<boolean>;
+}
+
+export interface Telegraf<TContext extends ContextMessageUpdate>
+  extends Composer<TContext> {
+  /**
+   * Use this property to get/set bot token
+   */
+  token: string;
 
   /**
-   * Use this method to get the current list of the bot's commands. Requires no parameters.
-   * @returns Array of BotCommand on success.
+   * Use this property to control reply via webhook feature.
    */
-  getMyCommands(): Promise<tt.BotCommand[]>
+  webhookReply: boolean;
 
   /**
-   * Use this method to change the list of the bot's commands.
-   * @param commands A list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
-   * @returns True on success
+   * Use this property to get telegram instance
    */
-  setMyCommands(commands: tt.BotCommand[]): Promise<boolean>
+  telegram: Telegram;
+
+  /**
+   * Use this property to extend context and support your custom interface
+   */
+  context: TContext;
+
+  /**
+   * Telegraf options
+   */
+  options: TOptions;
+
+  /**
+   * Launch bot in long-polling or webhook mode.
+   *
+   * @param options [See reference to get more]{@link https://telegraf.js.org/#/?id=launch}
+   */
+  launch: (options?: {
+    polling?: LaunchPollingOptions;
+    webhook?: LaunchWebhookOptions;
+  }) => Promise<void>;
+
+  /**
+   * Start poll updates.
+   * @param timeout Poll timeout in seconds
+   * @param limit Limits the number of updates to be retrieved
+   * @param allowedUpdates List the types of updates you want your bot to receive
+   * @param stopCallback Polling stop callback
+   */
+  startPolling: (
+    timeout?: number,
+    limit?: number,
+    allowedUpdates?: tt.UpdateType[] | tt.UpdateType | null,
+    stopCallback?: () => void | null,
+  ) => Telegraf<TContext>;
+
+  /**
+   * Start listening @ https://host:port/hookPath for Telegram calls.
+   * @param hookPath Webhook url path (see Telegraf.setWebhook)
+   * @param tlsOptions TLS server options. Pass null to use http
+   * @param port Port number
+   * @param host Hostname
+   * @param cb A callback function suitable for the http[s].createServer() method to handle a request.
+   */
+  startWebhook: (
+    hookPath: string,
+    tlsOptions?: TlsOptions | null,
+    port?: number,
+    host?: string,
+    cb?: (req: IncomingMessage, res: ServerResponse) => void,
+  ) => Telegraf<TContext>;
+
+  /**
+   * Stop Webhook and polling
+   */
+  stop: (cb?: () => void) => Promise<void>;
+
+  /**
+   * Return a callback function suitable for the http[s].createServer() method to handle a request.
+   * You may also use this callback function to mount your telegraf app in a Koa/Connect/Express app.
+   * @param hookPath Webhook url path (see Telegraf.setWebhook)
+   */
+  webhookCallback: (
+    hookPath: string,
+  ) => (req: IncomingMessage, res: ServerResponse) => void;
+
+  /**
+   * Handle raw Telegram update. In case you use centralized webhook server, queue, etc.
+   * @param rawUpdate Telegram update payload
+   * @param webhookResponse http.ServerResponse
+   */
+  handleUpdate: (
+    rawUpdate: tt.Update,
+    webhookResponse?: ServerResponse,
+  ) => Promise<any>;
+
+  catch: (handler: (error: Error, ctx: TContext) => void) => void;
+}
+
+export type CallbackGame = string;
+
+export interface Buttons {
+  url?: string;
+  pay?: boolean;
+  text: string;
+  callback_data?: string;
+  callback_game?: CallbackGame;
+  switch_inline_query?: string;
+  switch_inline_query_current_chat?: string;
+}
+
+export function session<TContext extends ContextMessageUpdate>(
+  opts?: Partial<{
+    property: string;
+    store: Map<string, any>;
+    getSessionKey: (ctx: TContext) => string;
+    ttl: number;
+  }>,
+): Middleware<TContext>;
+
+export interface TelegrafConstructor extends ComposerConstructor {
+  /**
+   * Initialize new Telegraf app.
+   * @param token Bot token
+   * @param options options
+   * @example
+   * new Telegraf(token, options)
+   */
+  new <TContext extends ContextMessageUpdate>(
+    token: string,
+    options?: TelegrafOptions,
+  ): Telegraf<TContext>;
+
+  Context: ContextMessageUpdate;
+
+  log: (logFn?: Function) => Middleware<ContextMessageUpdate>;
 }

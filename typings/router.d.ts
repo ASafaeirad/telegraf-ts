@@ -17,7 +17,7 @@ type HandlersMap<TContext extends TelegrafContext> = Map<
   Middleware<TContext>
 >
 
-declare class Router<TContext extends TelegrafContext>
+export class Router<TContext extends TelegrafContext>
   implements MiddlewareObj<TContext> {
   routeFn: RouteFn<TContext>
   handlers: HandlersMap<TContext>

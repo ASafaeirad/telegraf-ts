@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   extends: ["@frontendmonster"],
   parserOptions: {
     project: "./tsconfig.eslint.json",

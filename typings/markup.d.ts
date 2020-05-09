@@ -93,7 +93,7 @@ export type InlineKeyboardButton =
 
 export interface KeyboardOptions<TBtn> {
   columns?: number
-  wrap?(btn: TBtn, index: number, currentRow: TBtn[]): boolean
+  wrap?: (btn: TBtn, index: number, currentRow: TBtn[]) => boolean
 }
 
 export declare class Markup {
@@ -221,5 +221,5 @@ export declare class Markup {
     hide?: boolean
   ): LoginButton
 
-  static formatHTML(text: string, entities: Array<tt.MessageEntity>): string
+  static formatHTML(text: string, entities: tt.MessageEntity[]): string
 }

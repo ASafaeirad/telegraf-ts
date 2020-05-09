@@ -8,17 +8,19 @@
 
 // This is a test file for the TypeScript typings.
 // It is not intended to be used by external users.
-import Telegraf, {
+import {
+  Telegraf,
   Markup,
   Middleware,
-  ContextMessageUpdate,
+  TelegrafContext,
   Composer,
   TOptions,
   Telegram,
 } from './index';
+import { EntityType, BotCommand, MessageDice } from './telegram-types';
 
 const randomPhoto = 'https://picsum.photos/200/300/?random';
-const sayYoMiddleware: Middleware<ContextMessageUpdate> = ({ reply }, next) =>
+const sayYoMiddleware: Middleware<TelegrafContext> = ({ reply }, next) =>
   reply('yo').then(() => next?.());
 
 const { reply } = Telegraf;
@@ -195,15 +197,15 @@ bot.hears('something', async (ctx) => {
         },
     ])
 
-    const myCommands: tt.BotCommand[] = await ctx.telegram.getMyCommands()
+    const myCommands: BotCommand[] = await ctx.telegram.getMyCommands()
 
-    const messageDice: tt.MessageDice = await ctx.telegram.sendDice(0, {
+    const messageDice: MessageDice = await ctx.telegram.sendDice(0, {
         disable_notification: false,
         reply_markup: Markup.inlineKeyboard([]),
         reply_to_message_id: 0
     })
 
-    const replyWithDiceMessage: tt.MessageDice = await ctx.replyWithDice({
+    const replyWithDiceMessage: MessageDice = await ctx.replyWithDice({
         disable_notification: false,
         reply_markup: Markup.inlineKeyboard([]),
         reply_to_message_id: 0
@@ -212,16 +214,10 @@ bot.hears('something', async (ctx) => {
 
 // Markup
 
-const markup = new Markup();
-markup.inlineKeyboard([Markup.button('sample')], {});
-Markup.inlineKeyboard([Markup.callbackButton('sampleText', 'sampleData')], {});
-Markup.inlineKeyboard(
-  [
-    Markup.callbackButton('sampleCallbackButton', 'sampleData'),
-    Markup.urlButton('sampleUrlButton', 'https://github.com'),
-  ],
-  {},
-);
+const markup = new Markup
+markup.keyboard([Markup.button('sample')], {})
+Markup.inlineKeyboard([Markup.callbackButton('sampleText', 'sampleData')], {})
+Markup.inlineKeyboard([Markup.callbackButton('sampleCallbackButton', 'sampleData'), Markup.urlButton('sampleUrlButton', 'https://github.com')], {})
 
 // #761
 bot.telegram.sendPhoto(1, randomPhoto, {
@@ -230,15 +226,15 @@ bot.telegram.sendPhoto(1, randomPhoto, {
 });
 
 const formattedString = Markup.formatHTML("Добрейшего вечерочка дня", [
-  { offset: 0, length: 10, type: "bold" },
-  { offset: 11, length: 9, type: "strikethrough" }
+  { offset: 0, length: 10, type: "bold" as EntityType },
+  { offset: 11, length: 9, type: "strikethrough" as EntityType }
 ]);
 // type MiddlwareOrCmposer
 
 const composer = new Composer();
-const fooMiddleware: Middleware<ContextMessageUpdate> = ctx => ctx.reply('foo');
-const barMiddleware: Middleware<ContextMessageUpdate> = ctx => ctx.reply('bar');
-const bazMiddleware: Middleware<ContextMessageUpdate> = ctx => ctx.reply('baz');
+const fooMiddleware: Middleware<TelegrafContext> = ctx => ctx.reply('foo');
+const barMiddleware: Middleware<TelegrafContext> = ctx => ctx.reply('bar');
+const bazMiddleware: Middleware<TelegrafContext> = ctx => ctx.reply('baz');
 
 const otherComposer = new Composer(composer, bazMiddleware, bazMiddleware);
 Composer.compose([composer, bazMiddleware, bazMiddleware]);
@@ -264,7 +260,7 @@ bot.use(composer, otherComposer, fooMiddleware);
 
 // Custom Context
 
-class CustomContext extends Telegraf.Context {
+class CustomContext extends TelegrafContext {
   constructor(update: any, telegram: Telegram, options: TOptions) {
     console.log('Creating contexy for %j', update);
     super(update, telegram, options);
@@ -280,7 +276,7 @@ const customContextBot = new Telegraf<CustomContext>('', {
   contextType: CustomContext,
 });
 
-const middleware: Middleware<ContextMessageUpdate> = ctx => {
+const middleware: Middleware<TelegrafContext> = ctx => {
   ctx.replyWithMediaGroup([
     {
       type: 'photo',
@@ -298,7 +294,7 @@ const middleware: Middleware<ContextMessageUpdate> = ctx => {
 };
 
 // Telegram
-const middleware2: Middleware<ContextMessageUpdate> = ctx => {
+const middleware2: Middleware<TelegrafContext> = ctx => {
   // unbanChatMember
   ctx.telegram.unbanChatMember(100, 1000);
   ctx.telegram.unbanChatMember('100', 1000);

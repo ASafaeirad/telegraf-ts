@@ -1,6 +1,6 @@
 {
   "name": "telegraf-ts",
-  "version": "3.88.2",
+  "version": "3.88.1",
   "description": "Well-Typed fork of telegraf",
   "license": "MIT",
   "author": "frontendmonster <frontendmonster@gamil.com>",
@@ -35,21 +35,22 @@
   },
   "types": "./typings/index.d.ts",
   "dependencies": {
-    "debug": "^4.0.1",
-    "minimist": "^1.2.0",
-    "module-alias": "^2.2.2",
-    "node-fetch": "^2.2.0",
-    "sandwich-stream": "^2.0.1"
+    "debug": "4.0.1",
+    "minimist": "1.2.0",
+    "module-alias": "2.2.2",
+    "node-fetch": "2.2.0",
+    "sandwich-stream": "2.0.1"
   },
   "devDependencies": {
-    "@frontendmonster/eslint-config": "3.2.7",
-    "@types/node": "^13.1.0",
-    "ava": "^3.0.0",
-    "eslint": "^6.2.2",
-    "husky": "^4.2.0",
-    "np": "6.2.0",
-    "prettier": "2.0.2",
-    "typescript": "^3.0.1"
+    "@babel/core": "7.9.6",
+    "@frontendmonster/eslint-config": "3.2.14",
+    "@types/node": "13.13.5",
+    "ava": "3.0.0",
+    "eslint": "6.2.2",
+    "husky": "4.2.5",
+    "np": "6.2.3",
+    "prettier": "2.0.5",
+    "typescript": "3.0.1"
   },
   "keywords": [
     "telegraf",

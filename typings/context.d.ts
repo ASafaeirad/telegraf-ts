@@ -355,7 +355,7 @@ export declare class TelegrafContext {
   answerCbQuery(
     text?: string,
     showAlert?: boolean,
-    extra?: object
+    extra?: object,
   ): Promise<boolean>
 
   /**
