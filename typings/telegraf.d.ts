@@ -2,16 +2,14 @@
 
 /// <reference types="node" />
 
+import * as http from 'http'
 import { IncomingMessage, ServerResponse } from 'http'
 import * as https from 'https'
-import * as http from 'http'
 import { TlsOptions } from 'tls'
-
-import * as tt from './telegram-types.d'
-
-import { TelegrafContext } from './context'
 import { Composer } from './composer'
+import { TelegrafContext } from './context'
 import { Telegram, TelegramOptions } from './telegram'
+import * as tt from './telegram-types.d'
 
 export interface TelegrafOptions {
   /**
@@ -197,7 +195,7 @@ export declare class Telegraf<
 
   private fetchUpdates(): void
 
-  catch(logFn?: Function): void
+  catch(logFn?: (error: any, ctx: TContext) => any): void
 }
 
 export interface TOptions {

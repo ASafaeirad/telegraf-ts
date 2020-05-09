@@ -3,21 +3,23 @@
 import * as tt from './telegram-types.d'
 import { TelegrafContext } from './context'
 
-type HearsTriggers<TContext> = string[] | string | RegExp | RegExp[] | ((value: string, ctx: TContext) => RegExpExecArray | null)
-type BranchPredicate<TContext> = boolean | ((ctx: TContext) => boolean | Promise<boolean>)
+type HearsTriggers<TContext> =
+  | string[]
+  | string
+  | RegExp
+  | RegExp[]
+  | ((value: string, ctx: TContext) => RegExpExecArray | null)
+type BranchPredicate<TContext> =
+  | boolean
+  | ((ctx: TContext) => boolean | Promise<boolean>)
 
-export interface MiddlewareFn<TContext extends TelegrafContext> {
-  /*
-  next's parameter is in a contravariant position, and thus, trying to type it
-  prevents assigning `MiddlewareFn<ContextMessageUpdate>`
-  to `MiddlewareFn<CustomContext>`.
-  Middleware passing the parameter should be a separate type instead.
-  */
-  (ctx: TContext, next: () => Promise<void>): void | Promise<unknown>
-}
+export type MiddlewareFn<TContext extends TelegrafContext> = (
+  ctx: TContext,
+  next: () => Promise<void>
+) => void | Promise<unknown>
 
 export interface MiddlewareObj<TContext extends TelegrafContext> {
-  middleware(): MiddlewareFn<TContext>
+  middleware: () => MiddlewareFn<TContext>
 }
 
 export type Middleware<TContext extends TelegrafContext> =
@@ -29,7 +31,7 @@ export declare class Composer<TContext extends TelegrafContext>
   /**
    * Registers a middleware.
    */
-  use(...middlewares: ReadonlyArray<Middleware<TContext>>): this
+  use(...middlewares: readonly Middleware<TContext>[]): this
 
   /**
    * Registers middleware for provided update type.
@@ -40,7 +42,7 @@ export declare class Composer<TContext extends TelegrafContext>
       | tt.UpdateType[]
       | tt.MessageSubTypes
       | tt.MessageSubTypes[],
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): this
 
   /**
@@ -53,7 +55,7 @@ export declare class Composer<TContext extends TelegrafContext>
    */
   hears(
     triggers: HearsTriggers<TContext>,
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): this
 
   /**
@@ -61,7 +63,7 @@ export declare class Composer<TContext extends TelegrafContext>
    */
   action(
     triggers: HearsTriggers<TContext>,
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): this
 
   /**
@@ -69,25 +71,70 @@ export declare class Composer<TContext extends TelegrafContext>
    */
   command(
     command: string | string[],
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): this
 
   /**
    * Registers middleware for handling callback_data actions with game query.
    */
-  gameQuery(...middlewares: ReadonlyArray<Middleware<TContext>>): this
+  gameQuery(...middlewares: readonly Middleware<TContext>[]): this
 
   /**
    * Registers middleware for handling /start command.
    */
-  start(...middlewares: ReadonlyArray<Middleware<TContext>>): this
+  start(...middlewares: readonly Middleware<TContext>[]): this
 
   /**
    * Registers middleware for handling /help command.
    */
-  help(...middlewares: ReadonlyArray<Middleware<TContext>>): this
+  help(...middlewares: readonly Middleware<TContext>[]): this
 
-  constructor(...middlewares: ReadonlyArray<Middleware<TContext>>)
+  entity(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  email(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  url(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  textLink(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  textMention(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  mention(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  phone(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  hashtag(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  cashtag(
+    triggers: HearsTriggers<TContext>,
+    ...middlewares: readonly Middleware<TContext>[]
+  ): this
+
+  constructor(...middlewares: readonly Middleware<TContext>[])
 
   static unwrap<TContext extends TelegrafContext>(
     middleware: Middleware<TContext>
@@ -97,7 +144,7 @@ export declare class Composer<TContext extends TelegrafContext>
    * Compose middlewares returning a fully valid middleware comprised of all those which are passed.
    */
   static compose<TContext extends TelegrafContext>(
-    middlewares: ReadonlyArray<Middleware<TContext>>
+    middlewares: readonly Middleware<TContext>[]
   ): MiddlewareFn<TContext>
 
   /**
@@ -105,7 +152,7 @@ export declare class Composer<TContext extends TelegrafContext>
    */
   static mount<TContext extends TelegrafContext>(
     updateTypes: tt.UpdateType | tt.UpdateType[],
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): MiddlewareFn<TContext>
 
   /**
@@ -113,7 +160,7 @@ export declare class Composer<TContext extends TelegrafContext>
    */
   static hears<TContext extends TelegrafContext>(
     triggers: HearsTriggers<TContext>,
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): MiddlewareFn<TContext>
 
   /**
@@ -121,7 +168,7 @@ export declare class Composer<TContext extends TelegrafContext>
    */
   static action<TContext extends TelegrafContext>(
     triggers: HearsTriggers<TContext>,
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): MiddlewareFn<TContext>
 
   /**
@@ -140,7 +187,7 @@ export declare class Composer<TContext extends TelegrafContext>
    */
   static optional<TContext extends TelegrafContext>(
     predicate: BranchPredicate<TContext>,
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): MiddlewareFn<TContext>
 
   /**
@@ -186,20 +233,20 @@ export declare class Composer<TContext extends TelegrafContext>
    */
   static chatType<TContext extends TelegrafContext>(
     type: tt.ChatType | tt.ChatType[],
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): MiddlewareFn<TContext>
 
   /**
    * Generates middleware running only in private chats.
    */
   static privateChat<TContext extends TelegrafContext>(
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): MiddlewareFn<TContext>
 
   /**
    * Generates middleware running only in groups and supergroups.
    */
   static groupChat<TContext extends TelegrafContext>(
-    ...middlewares: ReadonlyArray<Middleware<TContext>>
+    ...middlewares: readonly Middleware<TContext>[]
   ): MiddlewareFn<TContext>
 }
