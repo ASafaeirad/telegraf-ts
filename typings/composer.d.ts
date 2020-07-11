@@ -205,6 +205,20 @@ export declare class Composer<TContext extends TelegrafContext>
   ): Middleware<TContext>
 
   /**
+   * Generates amind guard middleware
+   */
+  static admin<TContext extends TelegrafContext>(
+    ...middleware: readonly Middleware<TContext>[]
+  ): MiddlewareFn<TContext>
+
+  /**
+   * Generates creator guard middleware
+   */
+  static creator<TContext extends TelegrafContext>(
+    ...middleware: readonly Middleware<TContext>[]
+  ): MiddlewareFn<TContext>
+
+  /**
    * @param trueMiddleware middleware to run if the predicate returns true
    * @param falseMiddleware middleware to run if the predicate returns false
    */
