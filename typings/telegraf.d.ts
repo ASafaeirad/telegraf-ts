@@ -1,5 +1,3 @@
-/** @format */
-
 /// <reference types="node" />
 
 import * as http from 'http'

@@ -92,7 +92,7 @@ export declare class TelegrafContext {
    * Use this method to get a list of administrators in a chat.
    * @returns On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
    */
-  getChatAdministrators(): Promise<Array<tt.ChatMember>>
+  getChatAdministrators(): Promise<tt.ChatMember[]>
 
   /**
    * Use this method to get information about a member of a chat.
@@ -270,7 +270,7 @@ export declare class TelegrafContext {
   replyWithMediaGroup(
     media: tt.MessageMedia[],
     extra?: tt.ExtraMediaGroup
-  ): Promise<Array<tt.Message>>
+  ): Promise<tt.Message[]>
 
   /**
    * Use this method to send a native poll.
@@ -355,7 +355,7 @@ export declare class TelegrafContext {
   answerCbQuery(
     text?: string,
     showAlert?: boolean,
-    extra?: object,
+    extra?: object
   ): Promise<boolean>
 
   /**
