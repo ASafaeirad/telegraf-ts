@@ -24,7 +24,7 @@ export interface UserPermissionsOption {
 /**
  * This object contains information about one member of a chat.
  */
-export interface ChatMember extends ChatPermissions {
+export interface ChatMember extends ChatPermissions, ExtraPromoteChatMember {
   /**
    * Information about the user
    */
